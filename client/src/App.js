@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
+import Chat from './pages/Chat';
 
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
-  const title = 'Drawing Game';
-  useEffect(() => {
-    document.title = title;
-  }, []);
-
   return (
-    <div>
-      <h1>hello! welcome to my drawing game</h1>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path='/chat' component={Chat} />
+      </Switch>
+    </Router>
   );
 }
 

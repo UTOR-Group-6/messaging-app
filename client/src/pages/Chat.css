@@ -1,0 +1,11 @@
+.chat-div {
+    height: 100vh
+}
+
+.chat-wrapper {
+    padding: 10px;
+    background-color: blueviolet;
+    height: 500px;
+    width: 500px;
+}
+

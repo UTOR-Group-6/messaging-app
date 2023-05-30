@@ -1,0 +1,39 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+.message-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-message {
+    display: flex;
+    margin: 2px;
+}
+
+.message-user {
+    background-color: white;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+
+}
+
+.message-text {
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.message-div.own .message-user {
+    background-color: aqua;
+}
+
+.message-div.own .message-text {
+    background-color: aqua;
+}
