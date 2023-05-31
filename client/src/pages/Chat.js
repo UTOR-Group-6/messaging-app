@@ -2,6 +2,8 @@ import React from 'react'
 import './Chat.css'
 import Message from '../components/Message'
 
+import Auth from '../utils/auth';
+
 export default function Chat() {
     return (
         <div className="chat-div">

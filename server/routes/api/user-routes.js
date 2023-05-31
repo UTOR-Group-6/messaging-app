@@ -12,4 +12,6 @@ router.route('/').post(createUser).put(authMiddleware, getSingleUser);
 
 router.route('/login').post(login);
 
+router.route('')
+
 module.exports = router;
