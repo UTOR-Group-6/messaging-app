@@ -4,6 +4,8 @@ import Auth from '../utils/auth';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
+import './LoginForm.css'
+
 const LoginForm = () => {
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
     const [validated] = useState(false);
@@ -59,10 +61,9 @@ const LoginForm = () => {
                 placeholder="Email Address" 
                 name='email' 
                 onChange={handleInputChange} 
-                value={userFormData.email}>
-            </input>
+                value={userFormData.email} />
         
-            <p className="alert-msg" onClose={() => setShowAlert(false)} show={showAlert}>Sorry, please try again.</p>
+            <p className="alert-msg" onClose={() => setShowAlert(false)} show={showAlert} >Sorry, please try again.</p>
 
         </form>
       </div>
