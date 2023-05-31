@@ -7,5 +7,36 @@
     background-color: blueviolet;
     height: 500px;
     width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.chat-output {
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+
+.chat-input {
+    display: flex;
+    margin-top: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-input-ta {
+    width: 80%;
+    height: 15px;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.chat-submit-btn {
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: lightblue;
+}

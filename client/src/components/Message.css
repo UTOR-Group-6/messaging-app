@@ -11,7 +11,7 @@
 
 .single-message {
     display: flex;
-    margin: 2px;
+    margin: 5px;
 }
 
 .message-user {
@@ -20,6 +20,7 @@
     margin-right: 10px;
     border-radius: 5px;
     font-size: 15px;
+    height: 17px;
 
 }
 
@@ -30,8 +31,14 @@
     font-size: 15px;
 }
 
+.message-div.own .single-message {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
 .message-div.own .message-user {
     background-color: aqua;
+    margin: 0px 0px 0px 10px
 }
 
 .message-div.own .message-text {
