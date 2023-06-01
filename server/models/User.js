@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const Chat = require('./Chat')
 
 const userSchema = new Schema(
   {
@@ -19,7 +20,7 @@ const userSchema = new Schema(
       required: true,
     },
     // maybe an array for saved messages and conversations?
-    
+    chats: [Chat.schema]
   },
   {
     toJSON: {
