@@ -34,9 +34,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <LoginForm />
         <Switch>
-          <Route exact path='/chat' component={Chat} />
+          <Route exact path='/chats' component={Chat} />
         </Switch>
       </Router>
     </ApolloProvider>

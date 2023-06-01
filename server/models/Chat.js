@@ -2,19 +2,12 @@ const { Schema, model } = require('mongoose');
 
 const chatSchema = new Schema(
   {
-    sender: {
-      type: String,
-      required: true,
-    },
-    chatId: {
-      type: String,
-    },
-    messageText: {
-      type: String,
+    members: {
+      type: Array,
     },
   },
+  { timestamps: true }
 );
-
 
 const Chat = model('Chat', chatSchema);
 
