@@ -1,10 +1,20 @@
 import React from 'react'
-import './Chat.css'
-import Message from '../components/Message'
+import { Link } from 'react-router-dom';
 
-import Auth from '../utils/auth';
+import { useQuery } from '@apollo/client';
+import { QUERY_USER } from '../utils/queries';
+
+import './Chat.css'
+import Message from '../components/Message/Message'
 
 export default function Chat() {
+    const { data } = useQuery(QUERY_USER);
+    let user;
+
+    if (data) {
+        user = data.user;
+    }
+
     return (
         <div className="chat-div">
             <div className="chat">
