@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   ApolloClient,
   InMemoryCache,
@@ -7,8 +7,10 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+import Home from './pages/Home'
 import Chat from './pages/Chat';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -36,8 +38,10 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Routes>
+          <Route path='/' element={<Home />} />
           <Route path='/chats' element={<Chat />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
         </Routes>
       </Router>
     </ApolloProvider>

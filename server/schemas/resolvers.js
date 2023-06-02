@@ -13,7 +13,7 @@ const resolvers = {
         params.message = message;
       }
 
-      return Chat.find(params).populate('message')
+      return Chat.find(params).populate('messages')
     },
 
     chat: async (parent, { id }, context) => {

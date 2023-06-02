@@ -20,11 +20,11 @@ const LoginForm = () => {
       });
       const token = mutationResponse.data.login.token;
 
-      console.log(`password: ${token}`)
-
       Auth.login(token)
+
     } catch (err) {
       console.error(err);
+      return;
     }
     setFormState({
       email: '',
@@ -74,7 +74,7 @@ const LoginForm = () => {
             <button type="submit" className="login-btn">Login</button>
           </div>
 
-          <p className="redirect">Don't have an account? <Link to="" className="signup-link"><span>Signup now</span></Link></p>
+          <p className="redirect">Don't have an account? <Link to="/signup" className="signup-link"><span>Signup now</span></Link></p>
         </form>
       </div>
     </div>

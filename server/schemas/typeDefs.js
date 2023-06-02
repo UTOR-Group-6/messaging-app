@@ -29,7 +29,6 @@ const typeDefs = gql`
         chats(messages: ID): [Chat]
         chat(_id: ID!): Chat
         user: User
-
     }
 
     type Mutation {
