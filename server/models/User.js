@@ -1,8 +1,7 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose')
+const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
-
-// import schema for chats and messages
-
+const Chat = require('./Chat')
 
 const userSchema = new Schema(
   {
@@ -10,6 +9,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
     email: {
       type: String,
@@ -21,8 +21,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // maybe an array for saved messages and conversations?
-    
+    chats: [Chat.schema]
   },
   {
     toJSON: {
@@ -31,7 +30,6 @@ const userSchema = new Schema(
   }
 );
 
-// hash user password
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
@@ -41,12 +39,11 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// custom method to compare and validate password for logging in
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
 
-const User = model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
