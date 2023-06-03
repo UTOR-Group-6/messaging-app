@@ -91,7 +91,7 @@ const DrawCanvas = () => {
         <button className="clear-btn" onClick={clearCanvas}>
           clear
         </button>
-        <button className="save-btn" onClick={sendCanvas}>
+        <button className="send-btn" onClick={sendCanvas}>
           send
         </button>
       </div>

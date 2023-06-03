@@ -6,17 +6,12 @@ import DrawCanvas from "../components/Canvas";
 import Auth from "../utils/auth";
 
 export default function Chat() {
-  let popCanvas = null;
   let displayCanvas = false;
 
   const renderCanvas = () => {
-    // toggle canvas on button click
+    // toggle canvas display
     this.setState({ displayCanvas: !this.state.displayCanvas });
   };
-
-  if (displayCanvas) {
-    popCanvas = <DrawCanvas />;
-  }
 
   return (
     <div className="chat-div">
@@ -37,7 +32,6 @@ export default function Chat() {
             <Message />
             <Message />
           </div>
-          <div className="canvas-popup">{popCanvas}</div>
           <div className="chat-input">
             <button className="chat-canvas-btn" onClick={renderCanvas}>
               Canvas
