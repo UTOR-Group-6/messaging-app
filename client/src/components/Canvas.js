@@ -36,7 +36,7 @@ const DrawCanvas = () => {
     a.href = data;
     a.download = "sketch.png";
 
-    // should save data as a chat message
+    // should save data as a chat message / should be merged with chat submit btn
     a.click();
     // on click, send the message
   };
