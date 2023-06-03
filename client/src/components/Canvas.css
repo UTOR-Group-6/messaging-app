@@ -55,4 +55,6 @@
 .clear-btn {
   border: none;
   outline: none;
+  color: white;
+  background-color: rgb(3, 3, 175);
 }

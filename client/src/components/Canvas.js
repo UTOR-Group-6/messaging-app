@@ -19,6 +19,11 @@ const DrawCanvas = () => {
     ctx.strokeStyle = clr;
   };
 
+  // Change line width
+  const changeWidth = (width) => {
+    ctx.lineWidth = width.value;
+  };
+
   // Clear functionality
   const clearCanvas = () => {
     ctx.clearRect(0, 0, userCanvas.width, userCanvas.height);
@@ -73,7 +78,16 @@ const DrawCanvas = () => {
         <button className="clr-btn" onClick={changeColour("#d10202")}></button>
         <button className="clr-btn" onClick={changeColour("#fff")}></button>
         {/* option to change line width with slider */}
-        {/* option to use eraser */}
+        <div className="line-width">
+          <input
+            type="range"
+            className="line-width"
+            min={1}
+            max={10}
+            onChange={changeWidth}
+            value={5}
+          />
+        </div>
         <button className="clear-btn" onClick={clearCanvas}>
           clear
         </button>
