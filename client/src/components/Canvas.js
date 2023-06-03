@@ -91,10 +91,11 @@ const DrawCanvas = () => {
         <button className="clear-btn" onClick={clearCanvas}>
           clear
         </button>
-        <button className="send-btn" onClick={sendCanvas}>
-          send
-        </button>
       </div>
+      {/* Same button as Chat */}
+      <button className="send-btn" onClick={sendCanvas}>
+        send
+      </button>
     </div>
   );
 };

@@ -1,30 +1,22 @@
 import React from "react";
 import "./Chat.css";
 import Message from "../components/Message";
-import DrawCanvas from "../components/Canvas";
+import Upload from "../components/Upload";
 
 import Auth from "../utils/auth";
 
 export default function Chat() {
-  const [displayCanvas, setDisplay] = useState(false);
+  const [displayUpload, setUpload] = useState();
 
-  const renderChatInput = () => {
-    if (displayCanvas) {
-      return <DrawCanvas />;
-    } else {
-      return (
-        <textarea
-          className="chat-input-ta"
-          placeholder="send a message"
-        ></textarea>
-      );
-    }
+  const renderUpload = () => {
+    if (displayUpload) {
+      return <Upload />;
+    } else return;
   };
 
-  const handleInputChange = () => {
-    // toggle canvas display
-    setDisplay(!displayCanvas);
-  };
+  // const handleUploadRender = () => {
+  //   ;
+  // };
 
   return (
     <div className="chat-div">
@@ -45,12 +37,18 @@ export default function Chat() {
             <Message />
             <Message />
           </div>
+          {renderUpload}
           <div className="chat-input">
-            <button className="chat-canvas-btn" onClick={handleInputChange}>
-              Use Canvas
+            <button
+              className="chat-upload-btn"
+              onClick={(setUpload = !displayUpload)}
+            >
+              +
             </button>
-            {/* Toggle between text input and canvas */}
-            {renderChatInput}
+            <textarea
+              className="chat-input-ta"
+              placeholder="send a message"
+            ></textarea>
             <button className="chat-submit-btn">Send</button>
           </div>
         </div>
