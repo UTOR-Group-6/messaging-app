@@ -28,8 +28,9 @@ const DrawCanvas = () => {
     let a = document.createElement("a");
     a.href = data;
     a.download = "sketch.png";
+    // save data as a chat message
     a.click();
-    // on click, send the sketch as a message
+    // on click, send the message
   };
 
   // Set draw to true when mouse is pressed
