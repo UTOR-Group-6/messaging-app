@@ -21,13 +21,15 @@ export default function Chat() {
 			<div className="sidebar">
 				<div className="sidebar-wrapper">
 						<input className="search-bar" placeholder="Search for conversations"/>
-						<Conversation />
-						<Conversation />
-						<Conversation />
-						<Conversation />
-						<Conversation />
-						<Conversation />
-						<Conversation />
+						<div className="conversation-div">
+							<Conversation />
+							<Conversation />
+							<Conversation />
+							<Conversation />
+							<Conversation />
+							<Conversation />
+							<Conversation />
+						</div>
 				</div>
 			</div>
 			<div className="chat">
