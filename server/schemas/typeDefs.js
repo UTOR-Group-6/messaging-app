@@ -2,8 +2,10 @@ const {gql} = require('apollo-server-express');
 
 const typeDefs = gql`
     type Message {
-        _id: ID
-        messageText: String
+        _id: ID!
+        messageText: String!
+        user: User!
+        createdAt: String!
     }
 
     type Chat {
@@ -26,7 +28,7 @@ const typeDefs = gql`
 
     type Query {
         messages: [Message]
-        chats(messages: ID): [Chat]
+        chats: [Chat]
         chat(_id: ID!): Chat
         user: User
     }
@@ -35,6 +37,8 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
         updateUser(username: String, email: String, password: String): User
+        createChat: Chat
+        createMessage(chatId: ID!, messageText: String!): Message
     }
 `;
 

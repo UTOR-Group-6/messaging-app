@@ -4,7 +4,15 @@ const { Schema } = mongoose;
 
 const messageSchema = new Schema(
   {
-    messageText: { type: String },
+    messageText: { 
+      type: String,
+      required: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    }
   },
   { timestamps: true }
 );

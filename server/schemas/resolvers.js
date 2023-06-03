@@ -20,11 +20,21 @@ const resolvers = {
       if (context.user) {
         const user = await User.findById(context.user.id).populate({
           path: 'chats',
-          populate: 'messages'
+          populate: {
+            path: 'messages',
+            model: 'Message'
+          }
         });
 
-        return user.chats.id(id)
-      }
+        const chat = user.chats.find(chat => chat.id === id);
+
+        if (chat) {
+          return chat;
+        } else {
+          throw new Error("No chats found")
+        }
+      } 
+      throw new Error("Please log in to view chats!")
     },
 
     user: async (parent, args, context) => {
@@ -69,6 +79,33 @@ const resolvers = {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
       }
 
+      throw new AuthenticationError('Not logged in');
+    },
+    createChat: async (parent, args, context) => {
+      if (context.user) {
+        const newChat = new Chat();
+        const savedChat = await newChat.save();
+        return savedChat;
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+    createMessage: async(parent, { chatId, messageText }, context) => {
+      if (context.user) {
+        const chat = await Chat.findById(chatId);
+        if (!chat) {
+          throw new Error("Chat not found");
+        }
+
+        const newMessage = new Message({
+          messageText,
+          user: context.user.id,
+        });
+
+        chat.messages.push(newMessage);
+        await chat.save();
+
+        return newMessage;
+      }
       throw new AuthenticationError('Not logged in');
     },
   },
