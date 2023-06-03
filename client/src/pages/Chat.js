@@ -6,11 +6,24 @@ import DrawCanvas from "../components/Canvas";
 import Auth from "../utils/auth";
 
 export default function Chat() {
-  let displayCanvas = false;
+  const [displayCanvas, setDisplay] = useState(false);
 
-  const renderCanvas = () => {
+  const renderChatInput = () => {
+    if (displayCanvas) {
+      return <DrawCanvas />;
+    } else {
+      return (
+        <textarea
+          className="chat-input-ta"
+          placeholder="send a message"
+        ></textarea>
+      );
+    }
+  };
+
+  const handleInputChange = () => {
     // toggle canvas display
-    this.setState({ displayCanvas: !this.state.displayCanvas });
+    setDisplay(!displayCanvas);
   };
 
   return (
@@ -33,13 +46,11 @@ export default function Chat() {
             <Message />
           </div>
           <div className="chat-input">
-            <button className="chat-canvas-btn" onClick={renderCanvas}>
-              Canvas
+            <button className="chat-canvas-btn" onClick={handleInputChange}>
+              Use Canvas
             </button>
-            <textarea
-              className="chat-input-ta"
-              placeholder="send a message"
-            ></textarea>
+            {/* Toggle between text input and canvas */}
+            {renderChatInput}
             <button className="chat-submit-btn">Send</button>
           </div>
         </div>
