@@ -14,14 +14,26 @@ const resolvers = {
       throw new AuthenticationError("Please log in to continue.");
     },
 
-    chats: async (parent, { sender, recipient }) => {
-      // return all chat messages with those two people
-      // might make more sense to split into chats and messages
-      return Chat.find();
+    chats: async (parent, { userA, userB }) => {
+      // return all chat messages between sender and recipient
+      // in order to match the array forwards and backwards, save in alphabetical order
+      const chatlogs = await Chat.find({
+        users: { $eq: [userA, userB].sort() },
+      })
+        .populate("users")
+        .populate("sender")
+        .sort("createdAt");
+      // Should also populate message.sender
+      // may need to rework sort method, since it works alphabetically
+      return chatlogs;
     },
 
     chat: async (parent, { messageId }) => {
-      return Chat.findOne({ _id: messageId });
+      // Return one message
+      const message = await Chat.findByID(messageId)
+        .populate("users")
+        .populate("sender");
+      return message;
     },
   },
 
@@ -50,8 +62,14 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addChat: async (parent, { sender, recipient, message }) => {
-      const chat = await Chat.create({ sender, recipient, message });
+    addChat: async (parent, { sender, recipient, image, text }) => {
+      const chat = await Chat.create({
+        users: [sender, recipient].sort(),
+        sender: sender,
+        image: { fileName: image.fileName, fileData: image.fileData },
+        text: text,
+      });
+
       return { chat };
     },
   },

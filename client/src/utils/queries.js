@@ -1,13 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_CHAT = gql`
-  query getChat {
+  query getMessage {
     chat {
-      _id
-      sender
-      recipient
-      createdAt
+      users
       message
+      createdAt
     }
   }
 `;
@@ -15,11 +13,9 @@ export const QUERY_CHAT = gql`
 export const QUERY_CHATS = gql`
   query getChatlog {
     chats {
-      _id
-      sender
-      recipient
-      createdAt
+      users
       message
+      createdAt
     }
   }
 `;

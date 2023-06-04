@@ -14,7 +14,7 @@ export default function Chat() {
       return (
         <div className="upload-wrapper">
           {/* Remove image */}
-          <button>X</button>
+          <button className="remove-img">X</button>
           {/* Show image before sending */}
           <img srcSet={imgFile} alt="Image to be sent" loading="lazy" />
         </div>
@@ -29,7 +29,7 @@ export default function Chat() {
       setFile(e.target.files[0]);
     }
 
-    // Upload image to mongoose through mutation
+    // Upload image to mongoose through query
     fetch()
       .then((res) => res.json())
       .then((data) => console.log(data))

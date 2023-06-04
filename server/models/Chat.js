@@ -1,37 +1,44 @@
 const { Schema, model } = require("mongoose");
-const Users = require("./User.js");
 const dateFormat = require("../utils/dateFormat");
 
-const chatSchema = new Schema({
-  users: [
-    {
-      // array of users in the chat
-    },
-  ],
-  messages: [
-    {
-      sender: {
-        // User
-        type: String,
+const chatSchema = new Schema(
+  {
+    // Users in chat
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
         required: true,
       },
-      content: {
-        img: {
-          data: Buffer,
-          contentType: String,
-        },
-        text: {
-          type: String,
-        },
+    ],
+    sender: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    image: {
+      fileName: {
+        type: String,
       },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
+      fileData: {
+        data: Buffer,
+        contentType: String,
       },
     },
-  ],
-});
+    text: {
+      type: String,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp) => dateFormat(timestamp),
+    },
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
 
 const Chat = model("Chat", chatSchema);
 

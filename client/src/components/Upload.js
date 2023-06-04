@@ -9,7 +9,7 @@ export default function Upload() {
       setFile(e.target.files[0]);
     }
 
-    //display img in div above
+    //display img in div above input
   };
 
   const handleUploadClick = () => {
