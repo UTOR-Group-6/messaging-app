@@ -4,35 +4,27 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    messages: async () => Message.find(),
-
-    chats: async (parent, {message}) => {
-      const params = {};
-
-      if (message) {
-        params.message = message;
-      }
-
-      return Chat.find(params).populate('messages')
+    message: async (parent, { chatId }) => {
+      const messages = await Message.find({ chatId }).sort({ createdAt: -1 });
+      return messages;
     },
 
-    chat: async (parent, { id }, context) => {
+    chats: async (parent, { _id }) => {
       if (context.user) {
-        const user = await User.findById(context.user.id).populate({
-          path: 'chats',
-          populate: {
-            path: 'messages',
-            model: 'Message'
-          }
+        const user = await User.findById(context.user._id).populate({
+          path: 'messages',
+          populate: 'chats'
         });
 
-        const chat = user.chats.find(chat => chat.id === id);
+        return user.chats.id(_id);
+      }
 
-        if (chat) {
-          return chat;
-        } else {
-          throw new Error("No chats found")
-        }
+      throw new AuthenticationError("Please log in")
+    },
+
+    chat: async (parent, { chatId }) => {
+      if (context.user) {
+        return Chat.findById(chatId).populate('messages');
       } 
       throw new Error("Please log in to view chats!")
     },
@@ -40,8 +32,8 @@ const resolvers = {
     user: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user.id).populate({
-          path: 'chats',
-          populate: 'message'
+          path: 'messages',
+          populate: 'chats'
         })
 
         return user;
