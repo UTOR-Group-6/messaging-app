@@ -4,51 +4,41 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    messages: async () => Message.find(),
-
-    chats: async (parent, {message}) => {
-      const params = {};
-
-      if (message) {
-        params.message = message;
-      }
-
-      return Chat.find(params).populate('messages')
+    message: async (parent, { chatId }) => {
+      const messages = await Message.find({ chatId }).sort({ createdAt: -1 });
+      return messages;
+      
     },
 
-    chat: async (parent, { id }, context) => {
+    chats: async (parent, { _id }) => {
       if (context.user) {
-        const user = await User.findById(context.user.id).populate({
-          path: 'chats',
-          populate: {
-            path: 'messages',
-            model: 'Message'
-          }
+        const user = await User.findById(context.user._id).populate({
+          path: 'messages',
+          populate: 'chats'
         });
 
-        const chat = user.chats.find(chat => chat.id === id);
+        return user.chats.id(_id);
+      }
 
-        if (chat) {
-          return chat;
-        } else {
-          throw new Error("No chats found")
-        }
-      } 
-      throw new Error("Please log in to view chats!")
+      throw new AuthenticationError("Please log in")
+    },
+
+    chat: async (parent, { chatId }) => {
+      return Chat.findById(chatId).populate('messages');
     },
 
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user.id).populate({
-          path: 'chats',
-          populate: 'message'
-        })
+        const user = await User.find(context.user._id).populate({
+          path: 'messages',
+          populate: 'chats'
+        });
 
         return user;
       }
 
-      throw new AuthenticationError('Please log in!')
-    }
+      throw new AuthenticationError('Please log in');
+    },
   },
 
   Mutation: {
@@ -56,22 +46,23 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Sorry! No user was found with that email address.');
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect password. Please try again.');
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
 
       return { token, user };
     },
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
       const token = signToken(user);
+
       return { token, user };
     },
     updateUser: async (parent, args, context) => {
