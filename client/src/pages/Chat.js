@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./Chat.css";
 import Message from "../components/Message";
-import Upload from "../components/Upload";
 import DrawCanvas from "../components/Canvas";
 import { QUERY_CHAT } from "../utils/API";
 
@@ -30,7 +29,7 @@ export default function Chat() {
       setFile(e.target.files[0]);
     }
 
-    // Upload image to mongoose
+    // Upload image to mongoose through mutation
     fetch()
       .then((res) => res.json())
       .then((data) => console.log(data))

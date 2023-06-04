@@ -30,7 +30,12 @@ export const ADD_CHAT = gql`
       chat {
         _id
         sender
-        reci
+        recipient
+        createdAt
+        message {
+          img
+          text
+        }
       }
     }
   }

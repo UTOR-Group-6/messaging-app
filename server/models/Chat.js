@@ -1,30 +1,36 @@
 const { Schema, model } = require("mongoose");
+const Users = require("./User.js");
 const dateFormat = require("../utils/dateFormat");
 
-// rename to message for clarity
 const chatSchema = new Schema({
-  sender: {
-    type: String,
-    required: true,
-  },
-  recipient: {
-    type: String,
-    required: true,
-  },
-  message: {
-    img: {
-      data: Buffer,
-      contentType: String,
+  users: [
+    {
+      // array of users in the chat
     },
-    text: {
-      type: String,
+  ],
+  messages: [
+    {
+      sender: {
+        // User
+        type: String,
+        required: true,
+      },
+      content: {
+        img: {
+          data: Buffer,
+          contentType: String,
+        },
+        text: {
+          type: String,
+        },
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
+      },
     },
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
-  },
+  ],
 });
 
 const Chat = model("Chat", chatSchema);

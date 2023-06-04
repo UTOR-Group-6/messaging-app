@@ -14,12 +14,13 @@ const resolvers = {
       throw new AuthenticationError("Please log in to continue.");
     },
 
-    chatLogs: async () => {
-      // return all chat messages by id
+    chats: async (parent, { sender, recipient }) => {
+      // return all chat messages with those two people
+      // might make more sense to split into chats and messages
       return Chat.find();
     },
 
-    chatMsg: async (parent, { messageId }) => {
+    chat: async (parent, { messageId }) => {
       return Chat.findOne({ _id: messageId });
     },
   },
