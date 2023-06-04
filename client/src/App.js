@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,6 +11,8 @@ import Home from './pages/Home'
 import Chat from './pages/Chat';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
