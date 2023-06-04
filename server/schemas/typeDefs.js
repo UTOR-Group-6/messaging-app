@@ -23,14 +23,13 @@ const typeDefs = gql`
   }
   type Query {
     me: User
-    chatLogs: [Chat]!
-    chatMsg(messageId): Chat
-
+    chats: [Chat]!
+    chat(messageId: ID!): Chat
   }
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addChat(sender: String, recipient: String, message: [String]!)
+    addChat(sender: User!, recipient: User!, image: { fileName: String!, fileData: String! }, text: String!): Chat
   }
 `;
 
