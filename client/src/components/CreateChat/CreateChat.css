@@ -1,0 +1,24 @@
+.user-search-div {
+    border: 1px solid black;
+    width: 500px;
+    height: 200px;
+}
+
+.user-search-form {
+    
+}
+
+.user-search {
+    display: flex;
+    justify-content: center;
+}
+
+.username-div input {
+    border: 1px solid black;
+}
+
+.username-err {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}

@@ -1,12 +1,36 @@
 .nav-div {
+    height: 70px;
+    background-image: linear-gradient(to right, #fdfdfd 0%, #1282e4  100%);
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .navigator-ul {
     list-style: none;
 }
 
+.navigator-li {
+    margin-right: 20px;
+}
+
 .navigator-li a {
     text-decoration: none;
+    font-size: 20px;
+    color: white;
+    padding: 7px 15px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.navigator-li a:hover {
+    color: #1282e4 ;
+    background-color: white;
+
+
+}
+
+.logo-image {
+    height: 70px;
+
 }

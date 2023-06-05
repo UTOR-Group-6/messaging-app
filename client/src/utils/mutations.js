@@ -24,20 +24,31 @@ export const ADD_USER = gql`
 `;
 
 export const CREATE_CHAT = gql`
-  mutation createChat {
-    createChat {
+  mutation createChat($users: [ID]) {
+    createChat(users: $users) {
       _id
+      users {
+        _id
+        username
+      }
+      createdAt
     }
   }
 `;
 
-export const CREATE_MESSAGE = gql`
-  mutation createMessage($chatId: ID!, $messageText: String!) {
-    createMessage(chatId: $chatId, messageText: $messageText) {
+export const UPDATE_CHAT = gql`
+  mutation updateChat($_id: ID, $messageText: String, $user: String) {
+    updateChat(_id: $_id, messageText: $messageText, user: $user) {
       _id
-      messageText
-      chat {
+      messages {
         _id
+        messageText
+        user
+        createdAt
+      }
+      users {
+        _id
+        username
       }
     }
   }

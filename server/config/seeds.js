@@ -1,23 +1,23 @@
 const db = require('./connection');
-const { Chat, User, Message } = require('../models');
+const { Chat, User } = require('../models');
 
 db.once('open', async () => {
     await User.deleteMany();
 
     const user = await User.insertMany([
         {
-            username: 'coolkid123',
-            email: 'coolkid123@email.com',
+            username: 'user1',
+            email: 'user1@email.com',
             password: 'password',
         },
         {
-            username: 'sadkid123',
-            email: 'sadkid123@email.com',
+            username: 'user2',
+            email: 'user2@email.com',
             password: 'password',
         },
         {
-            username: 'happykid123',
-            email: 'happykid123@email.com',
+            username: 'user3',
+            email: 'user3@email.com',
             password: 'password',
         }
     ]);
@@ -26,51 +26,45 @@ db.once('open', async () => {
 
     await Chat.deleteMany();
 
-    const chat = await Chat.insertMany([
+    await Chat.insertMany([
         { 
-            users: [user[0]._id, user[1]._id]
+            messages: [
+                {
+                    messageText: 'Hello! How are you doing?',
+                    user: "user1",
+                },
+                {
+                    messageText: 'Are you on the way?',
+                    user: "user1",
+                },
+                {
+                    messageText: '10 minutes!',
+                    user: "user2",
+                },
+            ],
+            users: [user[0]._id, user[1].id]
         },
         { 
+            messages: [        
+                {
+                messageText: 'hey hey hey',
+                user: "user2",
+                },
+            ],
             users: [user[1]._id, user[2]._id]
         },
         { 
+            messages: [        
+                {
+                messageText: 'I like your name',
+                user: "user3",
+                },
+            ],
             users: [user[0]._id, user[2]._id]
         }
     ]);
 
     console.log('Chats seeded');
-
-    await Message.deleteMany();
-
-    await Message.insertMany([
-        {
-            messageText: 'Hello! How are you doing?',
-            user: user[0]._id,
-            chat: chat[0]._id
-        },
-        {
-            messageText: 'Are you on the way?',
-            user: user[0]._id,
-            chat: chat[0]._id
-        },
-        {
-            messageText: 'Be there in 10',
-            user: user[1]._id,
-            chat: chat[0]._id
-        },
-        {
-            messageText: 'hey hey hey',
-            user: user[2]._id,
-            chat: chat[1]._id
-        },
-        {
-            messageText: 'I like your name',
-            user: user[2]._id,
-            chat: chat[2]._id
-        },
-    ])
-
-    console.log('Messages seeded');
 
     process.exit();
 })
