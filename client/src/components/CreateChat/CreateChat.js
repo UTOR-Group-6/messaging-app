@@ -9,30 +9,29 @@ export default function CreateChat() {
     const [create] = useMutation(CREATE_CHAT);
     const [findUser, { loading, data: userData }] = useLazyQuery(QUERY_FIND_USER);
     const { data } = useQuery(QUERY_USER);
-    const currentUser = {data}
-    
 
-    useEffect(() => {
-        if (userData) {
-            const searchedUser = userData.findUser._id
-        }
-    }, [userData])
+    const searchUser = async () => {
+        await findUser({
+            variables: { username: formState.username },
+          })
+    }
 
     const handleCreateChat = async (event) => {
         event.preventDefault();
         
-        try {
-            await findUser({
-                variables: { username: formState.username },
-              });
-              
-            const searchedUser = await userData.findUser._id
+        try {      
+            await searchUser();
+            const searchedUser = userData.findUser._id
             console.log(searchedUser)
+            const currentUser = data.user._id
+            console.log(currentUser)
 
 
-            // const mutationResponse = await create({
-            //     variables: { users: [searchedUser] }
-            // })
+            const mutationResponse = await create({
+                variables: { users: [searchedUser, currentUser] }
+            });
+
+            return mutationResponse;
         } catch (err) {
             console.log(err);
             return;
@@ -49,23 +48,23 @@ export default function CreateChat() {
 
     return (
         <div className="user-search-div">
-            <form onSubmit={handleCreateChat}>
-                <div>
-                    <input
-                        type="username"
-                        name="username"
-                        id="username"
-                        placeholder="Search for a user"
-                        onChange={handleInputChange}
-                    />
-                </div>          
-
-                    <div>
-                    <p className="username-err">That user does not exist. Please check your spelling and try again!</p>
+            <form className="user-search-form" onSubmit={handleCreateChat}>
+                <div className="user-search">
+                    <div className="username-div">
+                        <input
+                            type="username"
+                            name="username"
+                            id="username"
+                            placeholder="Search for a user"
+                            onChange={handleInputChange}
+                        />
+                    </div>          
+                    <div className="create-btn-div">
+                        <button type="submit" className="create-btn">Create Chat</button>
                     </div>
-
-                <div className="create-btn-div">
-                    <button type="submit" className="create-btn">Create Chat</button>
+                </div>
+                <div>
+                    <p className="username-err">That user does not exist. Please check your spelling and try again!</p>
                 </div>
             </form>
         </div>

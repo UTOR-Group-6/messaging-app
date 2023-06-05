@@ -24,7 +24,7 @@ export const ADD_USER = gql`
 `;
 
 export const CREATE_CHAT = gql`
-  mutation createChat($users: ID) {
+  mutation createChat($users: [ID]) {
     createChat(users: $users) {
       _id
       users {

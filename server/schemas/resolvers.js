@@ -56,11 +56,8 @@ const resolvers = {
       return { token, user };
     },
     createChat: async (parent, args, context) => {
-      if (context.user) {
-
         const newChat = await Chat.create(args)
-      }
-      throw new AuthenticationError('Not logged in');
+        return newChat;
     },
     updateChat: async (parent, args, context) => {
       if (context.user) {
