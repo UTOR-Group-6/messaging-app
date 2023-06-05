@@ -62,11 +62,14 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addChat: async (parent, { sender, recipient, image, text }) => {
+    addChat: async (
+      parent,
+      { sender, recipient, fileName, fileData, text }
+    ) => {
       const chat = await Chat.create({
         users: [sender, recipient].sort(),
         sender: sender,
-        image: { fileName: image.fileName, fileData: image.fileData },
+        image: { fileName: fileName, fileData: fileData },
         text: text,
       });
 

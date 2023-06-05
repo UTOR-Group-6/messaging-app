@@ -29,7 +29,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addChat(sender: User!, recipient: User!, image: { fileName: String!, fileData: String! }, text: String!): Chat
+    addChat(sender: User!, recipient: User!, fileName: String!, fileData: String!, text: String!): Chat
   }
 `;
 

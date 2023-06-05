@@ -1,20 +1,32 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_CHAT = gql`
-  query getMessage {
-    chat {
+export const QUERY_CHATLOG = gql`
+  query chatLog {
+    chats {
+      _id
       users
-      message
+      sender
+      image {
+        fileName
+        fileData
+      }
+      text
       createdAt
     }
   }
 `;
 
-export const QUERY_CHATS = gql`
-  query getChatlog {
-    chats {
+export const QUERY_MESSAGE = gql`
+  query getMessage($messageId: ID!) {
+    chat(messageID: $messageID) {
+      _id
       users
-      message
+      sender
+      image {
+        fileName
+        fileData
+      }
+      text
       createdAt
     }
   }
