@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { QUERY_USER } from '../utils/queries';
 import { useQuery } from '@apollo/client';
 import Auth from "../utils/auth";
@@ -13,12 +13,12 @@ export default function Home() {
 	if (data) {
 		user = data.user;
 	}
-	console.log({data})
+	console.log(user)
 
 	if (Auth.loggedIn()) {
 		return (
 			<>
-			<Navbar />
+				<Navbar />
 				<div className="home-div">
 					{/* we can remove this, just here for movement to chat page */}
 					<p>temporary link:</p>
@@ -28,14 +28,9 @@ export default function Home() {
 		)
 	} else {
 		return (
-			<>
-				<Navbar />
-				<div className="home-div">
-					<p>{user}</p>
-					{/* we can remove this, just here for movement to chat page */}
-					<p>not logged in</p>
-				</div>
-			</>
+			<div>
+				<Navigate to="/login" replace={true}/>
+			</div>
 		)
 	}
 }

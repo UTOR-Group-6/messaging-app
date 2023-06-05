@@ -3,20 +3,25 @@ const { Schema } = mongoose;
 
 const messageSchema = new Schema(
   {
-    messageText: String,
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    messageText: {
+      type: String
     },
-    chatId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Chat',
-      required: true,
+    user: {
+      type:String
+    },
+    createdAt: {
+      type: Date, 
+      default: Date.now
     }
   },
-  { timestamps: true }
+  {
+    toJSON:{
+      getters: true
+    }, 
+    id: false
+  }
 );
 
-const Message = mongoose.model('Message', messageSchema);
 
-module.exports = Message;
+
+module.exports = messageSchema;

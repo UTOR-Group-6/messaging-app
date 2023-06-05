@@ -1,5 +1,5 @@
 .chat-div {
-    height: 97vh;
+    height: calc(100vh - 90px);
     display: flex;
 }
 
@@ -8,7 +8,7 @@
 }
 
 .sidebar-wrapper {
-    background-color: rgb(216, 216, 255);
+    background-color: rgb(195, 216, 255);
     height: 100%;
     padding: 10px;
     display: flex;
@@ -21,7 +21,7 @@
 
 .conversation-div {
     flex: 10.9;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: auto;
 }
 
@@ -39,7 +39,7 @@
 
 .chat-wrapper {
     padding: 10px;
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(208, 208, 208);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@
 
 .chat-output {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-right: 10px;
 }
 
@@ -65,7 +65,7 @@
     padding: 10px;
     font-size: 15px;
     resize: none;
-    overflow-y: scroll;
+    overflow-y: auto;
 
 }
 

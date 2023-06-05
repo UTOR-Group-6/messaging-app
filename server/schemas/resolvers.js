@@ -1,37 +1,25 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Chat, Message } = require('../models');
+const { User, Chat, } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    message: async (parent, { chatId }) => {
-      const messages = await Message.find({ chatId }).sort({ createdAt: -1 });
-      return messages;
-    },
-
-    chats: async (parent, { _id }) => {
+    chat: async (parent, { _id }, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate({
-          path: 'messages',
-          populate: 'chats'
-        });
-
-        return user.chats.id(_id);
+        const chats = await Chat.find({ _id })
+        return chats;
       }
 
       throw new AuthenticationError("Please log in")
     },
 
-    chat: async (parent, { chatId }) => {
-      if (context.user) {
-        return Chat.findById(chatId).populate('messages');
-      } 
-      throw new Error("Please log in to view chats!")
+    findUser: async (parent, { username }) => {
+      return User.findOne({ username })
     },
 
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id)
+        const user = await User.findById(context.user._id).populate('chats')
 
         return user;
       }
@@ -63,40 +51,24 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    updateUser: async (parent, args, context) => {
-      if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, { new: true });
-      }
-
-      throw new AuthenticationError('Not logged in');
-    },
     createChat: async (parent, args, context) => {
       if (context.user) {
-        const newChat = new Chat();
-        const savedChat = await newChat.save();
-        return savedChat;
+
+        const newChat = await Chat.create(args)
       }
       throw new AuthenticationError('Not logged in');
     },
-    createMessage: async(parent, { chatId, messageText }, context) => {
+    updateChat: async (parent, args, context) => {
       if (context.user) {
-        const chat = await Chat.findById(chatId);
-        if (!chat) {
-          throw new Error("Chat not found");
-        }
-
-        const newMessage = new Message({
-          messageText,
-          user: context.user.id,
-        });
-
-        chat.messages.push(newMessage);
-        await chat.save();
-
-        return newMessage;
+        const updatedChat = await Chat.findByIdAndUpdate(
+          { _id: args._id },
+          { $addToSet: { messages: { messageText: args.messageText, user: args.user } } },
+          { new: true }
+        )
+        return updatedChat
       }
       throw new AuthenticationError('Not logged in');
-    },
+    }
   },
 };
 
