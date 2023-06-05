@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_CHATLOG = gql`
+export const QUERY_CHATS = gql`
   query chatLog {
     chats {
       _id

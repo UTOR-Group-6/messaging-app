@@ -25,13 +25,16 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_CHAT = gql`
-  mutation addChat($sender: User!, $recipient: User!, {
-    addChat(sender: $sender, recipient: $recipient, message: {img: $message.img, text: $message.text}) {
+  mutation addChat($sender: User!, $recipient: User!, $fileName: String!, $fileData: String!, $text: String! {
+    addChat(sender: $sender, recipient: $recipient, fileName: $fileName, fileData: $fileData, text: $text) {
       chat {
         _id
         users
         sender
-        image
+        image {
+          fileName
+          fileData
+        }
         text
         createdAt
       }
