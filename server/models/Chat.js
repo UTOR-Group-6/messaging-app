@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
+// Should store images using GridFS -> stores files larger than 16 MB
+// GridFS separates large files into metadata and chunks in one bucket
 const chatSchema = new Schema(
   {
     // Users in chat

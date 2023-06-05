@@ -11,6 +11,7 @@ import Auth from "../utils/auth";
 export default function Chat() {
   const [selectedImage, setImage] = useState();
   const [preview, setPreview] = useState();
+  const [formState, setFormState] = useState();
   const [addChat, { error, data }] = useMutation(ADD_CHAT);
 
   // Effect to create a preview whenever file is changed
@@ -53,7 +54,24 @@ export default function Chat() {
   };
 
   // Send message, including any images and text
-  const handleFormSubmit = (e) => {};
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    // save and send message
+    // sender, recipient, selectedImage, messageText
+    // Get user
+    // Get recipient...
+    try {
+      // Get current user for sender
+      // How to get recipient?
+      const { chatData } = await addChat({
+        variables: { ...formState },
+      });
+      // show the message
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="chat-div">
@@ -90,7 +108,7 @@ export default function Chat() {
                 className="chat-input-ta"
                 placeholder="send a message"
               ></textarea>
-              {/* Replace with submit on enter?*/}
+              {/* Add submit on enter?*/}
               <button className="chat-submit-btn">Send</button>
             </div>
           </div>
