@@ -1,9 +1,10 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
 import Auth from "../utils/auth"
-
-import { useQuery } from '@apollo/client';
-import {  } from '../utils/queries';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { useMutation } from '@apollo/client'
+import { CREATE_CHAT } from '../utils/mutations';
 
 import './Chat.css'
 import Message from '../components/Message/Message'
@@ -11,13 +12,15 @@ import Conversation from '../components/Conversation/Conversation'
 import Navbar from '../components/Navbar/Navbar'
 
 export default function Chat() {
-	const { data } = useQuery();
-	let user;
 
-	if (data) {
-		user = data.user;
+	const handleChatCreate = async (event) => {
+		try {
+
+		} catch (err) {
+			console.error(err);
+			return;
+		}
 	}
-	console.log(user)
 
 	if (Auth.loggedIn()) {
 		return (
@@ -26,14 +29,11 @@ export default function Chat() {
 				<div className="chat-div">
 					<div className="sidebar">
 						<div className="sidebar-wrapper">
-								<input className="search-bar" placeholder="Search for conversations"/>
+								<div className="sidebar-top">
+									<input className="search-bar" placeholder="Search for conversations"/>
+									<FontAwesomeIcon className="add-chat-btn" icon={faCirclePlus} />
+								</div>
 								<div className="conversation-div">
-									<Conversation />
-									<Conversation />
-									<Conversation />
-									<Conversation />
-									<Conversation />
-									<Conversation />
 									<Conversation />
 								</div>
 						</div>

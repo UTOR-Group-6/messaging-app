@@ -34,6 +34,7 @@ export const QUERY_USER = gql`
             username
             email
             chats {
+                _id
                 messages {
                     _id
                     messageText
@@ -43,6 +44,7 @@ export const QUERY_USER = gql`
                 users {
                     _id
                     username
+                    email
                 }
             }
         }

@@ -14,7 +14,11 @@ const resolvers = {
     },
 
     findUser: async (parent, { username }) => {
-      return User.findOne({ username })
+      const user = await User.findOne({ username })
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return user;
     },
 
     user: async (parent, args, context) => {

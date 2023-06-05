@@ -15,8 +15,16 @@
     flex-direction: column;
 }
 
-.search-bar {
-    flex: 0.1;
+.sidebar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-chat-btn {
+    flex: 3;
+    font-size: 25px;
+    margin-bottom: 5px;
 }
 
 .conversation-div {
@@ -26,6 +34,7 @@
 }
 
 .search-bar {
+    flex: 12;
     width: 90%;
     padding: 10px;
     border: 1px solid black;

@@ -11,7 +11,7 @@ const typeDefs = gql`
     type Chat {
         _id: ID
         messages: [Message]
-        users: [User!]!
+        users: [User]
         createdAt: String!
     }
 
@@ -30,7 +30,7 @@ const typeDefs = gql`
     type Query {
         user: User
         chat(_id: ID): Chat
-        findUser(username: String!): User
+        findUser(username: String): User
     }
 
     type Mutation {
