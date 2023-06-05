@@ -4,35 +4,34 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    messages: async () => Message.find(),
-
-    chats: async (parent, {message}) => {
-      const params = {};
-
-      if (message) {
-        params.message = message;
-      }
-
-      return Chat.find(params).populate('messages')
+    message: async (parent, { chatId }) => {
+      const messages = await Message.find({ chatId }).sort({ createdAt: -1 });
+      return messages;
     },
 
-    chat: async (parent, { id }, context) => {
+    chats: async (parent, { _id }) => {
       if (context.user) {
-        const user = await User.findById(context.user.id).populate({
-          path: 'chats',
-          populate: 'messages'
+        const user = await User.findById(context.user._id).populate({
+          path: 'messages',
+          populate: 'chats'
         });
 
-        return user.chats.id(id)
+        return user.chats.id(_id);
       }
+
+      throw new AuthenticationError("Please log in")
+    },
+
+    chat: async (parent, { chatId }) => {
+      if (context.user) {
+        return Chat.findById(chatId).populate('messages');
+      } 
+      throw new Error("Please log in to view chats!")
     },
 
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user.id).populate({
-          path: 'chats',
-          populate: 'message'
-        })
+        const user = await User.findById(context.user._id)
 
         return user;
       }
@@ -69,6 +68,33 @@ const resolvers = {
         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
       }
 
+      throw new AuthenticationError('Not logged in');
+    },
+    createChat: async (parent, args, context) => {
+      if (context.user) {
+        const newChat = new Chat();
+        const savedChat = await newChat.save();
+        return savedChat;
+      }
+      throw new AuthenticationError('Not logged in');
+    },
+    createMessage: async(parent, { chatId, messageText }, context) => {
+      if (context.user) {
+        const chat = await Chat.findById(chatId);
+        if (!chat) {
+          throw new Error("Chat not found");
+        }
+
+        const newMessage = new Message({
+          messageText,
+          user: context.user.id,
+        });
+
+        chat.messages.push(newMessage);
+        await chat.save();
+
+        return newMessage;
+      }
       throw new AuthenticationError('Not logged in');
     },
   },

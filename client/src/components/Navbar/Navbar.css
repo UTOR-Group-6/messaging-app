@@ -1,0 +1,12 @@
+.nav-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigator-ul {
+    list-style: none;
+}
+
+.navigator-li a {
+    text-decoration: none;
+}

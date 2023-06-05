@@ -1,5 +1,5 @@
 .chat-div {
-    height: 98vh;
+    height: 97vh;
     display: flex;
 }
 
@@ -11,6 +11,18 @@
     background-color: rgb(216, 216, 255);
     height: 100%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar {
+    flex: 0.1;
+}
+
+.conversation-div {
+    flex: 10.9;
+    overflow-y: scroll;
+    height: auto;
 }
 
 .search-bar {
@@ -48,10 +60,13 @@
 }
 
 .chat-input-ta {
-    width: 80%;
-    height: 15px;
+    height: 60px;
+    width: 90%;
     padding: 10px;
-    font-size: 13px;
+    font-size: 15px;
+    resize: none;
+    overflow-y: scroll;
+
 }
 
 .chat-submit-btn {
