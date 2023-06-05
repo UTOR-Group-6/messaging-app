@@ -2,39 +2,58 @@ import React, { useEffect } from "react";
 import "./Chat.css";
 import Message from "../components/Message";
 import DrawCanvas from "../components/Canvas";
-import { QUERY_CHAT } from "../utils/API";
+import { useMutation } from "@apollo/client";
+import { ADD_CHAT } from "../utils/mutations";
+import { QUERY_CHATLOG, QUERY_MESSAGE } from "../utils/queries";
 
 import Auth from "../utils/auth";
 
 export default function Chat() {
-  const [imgFile, setFile] = useState();
+  const [selectedImage, setImage] = useState();
+  const [preview, setPreview] = useState();
+  const [addChat, { error, data }] = useMutation(ADD_CHAT);
 
-  const renderImg = () => {
-    if (imgFile) {
+  // Effect to create a preview whenever file is changed
+  useEffect(() => {
+    if (!selectedImage) {
+      setPreview(undefined);
+      return;
+    }
+
+    const imgUrl = URL.createObjectURL(selectedImage);
+    setPreview(imgUrl);
+
+    // Free memory whenever this component is unmounted
+    return () => URL.revokeObjectURL(imgUrl);
+  }, [selectedImage]);
+
+  const handleFileSelect = (e) => {
+    // Set target file
+    if (!e.target.files || e.target.files.length === 0) {
+      setImage(undefined);
+      return;
+    }
+
+    // Accept only one image
+    setImage(e.target.files[0]);
+  };
+
+  const renderPreview = () => {
+    if (preview) {
       return (
-        <div className="upload-wrapper">
-          {/* Remove image */}
-          <button className="remove-img">X</button>
-          {/* Show image before sending */}
-          <img srcSet={imgFile} alt="Image to be sent" loading="lazy" />
+        <div className="chat-preview">
+          {/* Remove image and preview */}
+          <button className="remove-img" onClick={setImage(undefined)}>
+            X
+          </button>
+          <img srcSet={preview} alt="Image to be sent" loading="lazy" />
         </div>
       );
     } else return;
   };
 
-  // to upload an image
-  const handleFileChange = (e) => {
-    // Set target file
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-
-    // Upload image to mongoose through query
-    fetch()
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err));
-  };
+  // Send message, including any images and text
+  const handleFormSubmit = (e) => {};
 
   return (
     <div className="chat-div">
@@ -56,22 +75,24 @@ export default function Chat() {
             <Message />
           </div>
           <div className="chat-input">
-            {renderImg}
-            <button className="chat-upload-btn">
-              <input
-                className="btn-file-input"
-                type="file"
-                accept="image/gif,image/jpeg,image/png"
-                onChange={handleFileChange}
-              />
-              +
-            </button>
-            <textarea
-              className="chat-input-ta"
-              placeholder="send a message"
-            ></textarea>
-            {/* Replace with submit on enter?*/}
-            <button className="chat-submit-btn">Send</button>
+            {renderPreview}
+            <div className="chat-input-main">
+              <button className="chat-upload-btn">
+                <input
+                  className="btn-file-input"
+                  type="file"
+                  accept="image/gif,image/jpeg,image/png"
+                  onChange={handleFileSelect}
+                />
+                +
+              </button>
+              <textarea
+                className="chat-input-ta"
+                placeholder="send a message"
+              ></textarea>
+              {/* Replace with submit on enter?*/}
+              <button className="chat-submit-btn">Send</button>
+            </div>
           </div>
         </div>
       </div>
