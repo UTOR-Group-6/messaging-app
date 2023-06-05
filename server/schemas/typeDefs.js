@@ -29,10 +29,10 @@ const typeDefs = gql`
     }
 
     type Query {
+        user: User
         message(chatId: String!): [Message]
         chat(_id: ID): Chat
         chats(users: ID): [Chat]
-        user: User
     }
 
     type Mutation {

@@ -41,15 +41,9 @@ export const QUERY_CHAT = gql`
 export const QUERY_USER = gql`
     {
         user {
+            _id
             username
             email
-            chats {
-                _id
-                messages {
-                    _id
-                    messageText
-                }
-            }
         }
     }
 `;
