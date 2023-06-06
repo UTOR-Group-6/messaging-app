@@ -6,8 +6,8 @@ const resolvers = {
   Query: {
     chat: async (parent, { _id }, context) => {
       if (context.user) {
-        const chats = await Chat.find({ _id })
-        return chats;
+        const chat = await Chat.findOne({ _id }).populate('users')
+        return chat;
       }
 
       throw new AuthenticationError("Please log in")
