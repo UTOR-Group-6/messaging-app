@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation, useLazyQuery, useQuery } from '@apollo/client';
-import { CREATE_CHAT } from '../../utils/mutations';
+import { CREATE_CHAT, UPDATE_USER_CHATS } from '../../utils/mutations';
 import { QUERY_USER, QUERY_FIND_USER } from '../../utils/queries';
 import './CreateChat.css'
 
 export default function CreateChat() {
     const [formState, setFormState] = useState({ user: '' });
     const [create] = useMutation(CREATE_CHAT);
+    const [updateUser] = useMutation(UPDATE_USER_CHATS);
     const [findUser, { loading, data: userData }] = useLazyQuery(QUERY_FIND_USER);
     const { data } = useQuery(QUERY_USER);
 
@@ -31,7 +32,19 @@ export default function CreateChat() {
                 variables: { users: [searchedUser, currentUser] }
             });
 
-            return mutationResponse;
+            const chatId = mutationResponse.data.createChat._id;
+            console.log(chatId)
+
+            const updatedUser = await updateUser({
+                variables: { 
+                    _id: currentUser,
+                    chatId: chatId
+                }
+            })
+
+            console.log(updatedUser)
+
+
         } catch (err) {
             console.log(err);
             return;

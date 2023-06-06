@@ -8,7 +8,7 @@ export default function OpenChats() {
 	const { loading, data } = useQuery(QUERY_USER);
 	const userData = data?.me || {};
 
-	console.log()
+	console.log(data)
 	
 
 	return (

@@ -69,6 +69,17 @@ const resolvers = {
         return updatedChat
       }
       throw new AuthenticationError('Not logged in');
+    },
+    updateUserChats: async (parent, args, context) => {
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: args._id },
+        { $addToSet: { chats: { _id: args.chatId } }},
+        { new: true }
+      ).populate({
+        path: 'chats',
+        populate: 'users'
+      })
+      return updatedUser;
     }
   },
 };

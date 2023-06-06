@@ -38,6 +38,7 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         createChat(users: [ID]): Chat
         updateChat(_id: ID, messageText: String, user: String): Chat
+        updateUserChats(_id: ID, chatId: ID): User
     }
 `;
 

@@ -25,7 +25,8 @@ export const QUERY_CHAT = gql`
                 username
             }
         }
-    }`;
+    }
+`;
 
 export const QUERY_USER = gql`
     {
