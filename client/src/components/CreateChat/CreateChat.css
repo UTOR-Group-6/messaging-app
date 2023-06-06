@@ -1,11 +1,11 @@
 .user-search-div {
-    border: 1px solid black;
     width: 500px;
     height: 200px;
+    background-color: rgb(152, 152, 187);
 }
 
 .user-search-form {
-    
+    padding: 10px;
 }
 
 .user-search {

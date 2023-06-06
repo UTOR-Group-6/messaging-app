@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import { useMutation, useLazyQuery, useQuery } from '@apollo/client';
 import { CREATE_CHAT, UPDATE_USER_CHATS } from '../../utils/mutations';
 import { QUERY_USER, QUERY_FIND_USER } from '../../utils/queries';
+import { useMutation, useLazyQuery, useQuery } from '@apollo/client';
 import './CreateChat.css'
 
 export default function CreateChat() {
-    const [formState, setFormState] = useState({ user: '' });
+    const [formState, setFormState] = useState({ username: '' });
+    const [errorMessage, setErrorMessage] = useState('');
     const [create] = useMutation(CREATE_CHAT);
     const [updateUser] = useMutation(UPDATE_USER_CHATS);
-    const [findUser, { loading, data: userData }] = useLazyQuery(QUERY_FIND_USER);
+    const [findUser, { data: userData }] = useLazyQuery(QUERY_FIND_USER);
     const { data } = useQuery(QUERY_USER);
 
-    const searchUser = async () => {
-        await findUser({
-            variables: { username: formState.username },
-          })
-    }
 
     const handleCreateChat = async (event) => {
         event.preventDefault();
+
+        if (!formState.username) {
+            setErrorMessage('Please enter a username')
+            return;
+        }
         
         try {      
-            await searchUser();
             const searchedUser = userData.findUser._id
             console.log(searchedUser)
             const currentUser = data.user._id
@@ -34,29 +34,49 @@ export default function CreateChat() {
 
             const chatId = mutationResponse.data.createChat._id;
             console.log(chatId)
+            console.log(mutationResponse)
 
-            const updatedUser = await updateUser({
+            const updatedCurrentUser = await updateUser({
                 variables: { 
                     _id: currentUser,
                     chatId: chatId
                 }
             })
 
-            console.log(updatedUser)
+            const updatedSearchedUser = await updateUser({
+                variables: { 
+                    _id: searchedUser,
+                    chatId: chatId
+                }
+            })
+
+            console.log(updatedCurrentUser)
+            console.log(updatedSearchedUser)
+
+            setFormState({
+                username: ''
+            });
+            setErrorMessage('');
 
 
         } catch (err) {
+            setErrorMessage('Sorry, that user does not exist')
             console.log(err);
             return;
         }
     };
 
-    const handleInputChange = (event) => {
+    const handleInputChange = async (event) => {
         const { name, value } = event.target;
         setFormState({
           ...formState,
           [name]:value
         });
+        const inputValue = event.target.value
+
+        await findUser({
+            variables: { username: inputValue },
+        })
       };
 
     return (
@@ -68,7 +88,8 @@ export default function CreateChat() {
                             type="username"
                             name="username"
                             id="username"
-                            placeholder="Search for a user"
+                            placeholder={"Search for a user"}
+                            value={formState.username}
                             onChange={handleInputChange}
                         />
                     </div>          
@@ -76,9 +97,11 @@ export default function CreateChat() {
                         <button type="submit" className="create-btn">Create Chat</button>
                     </div>
                 </div>
-                <div>
-                    <p className="username-err">That user does not exist. Please check your spelling and try again!</p>
-                </div>
+                {errorMessage && (
+                    <div>
+                        <p className="username-err">{errorMessage}</p>
+                    </div>
+                )}
             </form>
         </div>
     );
