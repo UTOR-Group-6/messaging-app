@@ -52,4 +52,27 @@ export const UPDATE_CHAT = gql`
       }
     }
   }
+`;
+
+export const UPDATE_USER_CHATS = gql`
+  mutation updateUserChats($_id: ID, $chatId: ID) {
+    updateUserChats(_id: $_id, chatId: $chatId) {
+      _id
+      username
+      chats {
+        _id
+        messages {
+            _id
+            messageText
+            user
+            createdAt
+        }
+        users {
+            _id
+            username
+            email
+        }
+      }
+    }
+  }
 `

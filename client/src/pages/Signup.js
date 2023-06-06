@@ -61,6 +61,7 @@ const SignupForm = () => {
       ...formState,
       [name]:value
     });
+    console.log(formState.username)
   };
   
   return (
