@@ -1,55 +1,69 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_FIND_USER = gql`
-    query findUser($username: String!) {
-        findUser(username: $username) {
-            _id
-            username
-            email
-        }
+  query findUser($username: String!) {
+    findUser(username: $username) {
+      _id
+      username
+      email
     }
+  }
 `;
 
 export const QUERY_CHAT = gql`
-    query getChat($_id: ID) {
-        chat(_id: $_id) {
-            _id
-            messages {
-                _id
-                messageText
-                user
-                createdAt
-            }
-            users {
-                _id
-                username
-            }
-        }
+  query getChat($_id: ID) {
+    chat(_id: $_id) {
+      _id
+      messages {
+        _id
+        messageText
+        user
+        createdAt
+      }
+      users {
+        _id
+        username
+      }
     }
+  }
 `;
 
 export const QUERY_USER = gql`
-    {
-        user {
-            _id
-            username
-            email
-            chats {
-                _id
-                messages {
-                    _id
-                    messageText
-                    user
-                    createdAt
-                }
-                users {
-                    _id
-                    username
-                    email
-                }
-            }
+  {
+    user {
+      _id
+      username
+      email
+      chats {
+        _id
+        messages {
+          _id
+          messageText
+          user
+          createdAt
         }
+        users {
+          _id
+          username
+          email
+        }
+      }
     }
+  }
+`;
+
+export const QUERY_PROFILE = gql`
+  {
+    profile {
+      user {
+        _id
+        username
+        email
+      }
+      bio
+      icon
+    }
+  }
 `;
 
 /* 
@@ -58,6 +72,7 @@ Queries:
 - Get one chat by id (populate messages and users)
 - Get user who is signed in (GET ME)- context.user - done
 - Get user by username - NOT context user (to look up people to add to chat)
+- Get profile of user who is signed in
 
 Mutations:
 - login - done
@@ -71,4 +86,4 @@ only of there is time:
 - update message
 - update chat
 
-*/ 
+*/

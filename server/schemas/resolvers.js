@@ -1,35 +1,47 @@
-const { User, Chat, } = require('../models');
-const { AuthenticationError } = require('apollo-server-express');
-const { signToken } = require('../utils/auth');
+const { User, Chat } = require("../models");
+const { AuthenticationError } = require("apollo-server-express");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     chat: async (parent, { _id }, context) => {
       if (context.user) {
-        const chats = await Chat.find({ _id })
+        const chats = await Chat.find({ _id });
         return chats;
       }
 
-      throw new AuthenticationError("Please log in")
+      throw new AuthenticationError("Please log in");
     },
 
     findUser: async (parent, { username }) => {
-      const user = await User.findOne({ username })
+      const user = await User.findOne({ username });
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
       return user;
     },
 
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate('chats')
+        const user = await User.findById(context.user._id).populate("chats");
 
         return user;
       }
 
-      throw new AuthenticationError('Please log in!')
-    }
+      throw new AuthenticationError("Please log in!");
+    },
+
+    profile: async (parent, args, context) => {
+      if (context.user) {
+        const profile = await Profile.findOne({
+          user: context.user._id,
+        }).populate("user");
+
+        return profile;
+      }
+
+      throw new AuthenticationError("Please log in!");
+    },
   },
 
   Mutation: {
@@ -37,13 +49,15 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Sorry! No user was found with that email address.');
+        throw new AuthenticationError(
+          "Sorry! No user was found with that email address."
+        );
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect password. Please try again.');
+        throw new AuthenticationError("Incorrect password. Please try again.");
       }
 
       const token = signToken(user);
@@ -56,31 +70,35 @@ const resolvers = {
       return { token, user };
     },
     createChat: async (parent, args, context) => {
-        const newChat = await Chat.create(args)
-        return newChat;
+      const newChat = await Chat.create(args);
+      return newChat;
     },
     updateChat: async (parent, args, context) => {
       if (context.user) {
         const updatedChat = await Chat.findByIdAndUpdate(
           { _id: args._id },
-          { $addToSet: { messages: { messageText: args.messageText, user: args.user } } },
+          {
+            $addToSet: {
+              messages: { messageText: args.messageText, user: args.user },
+            },
+          },
           { new: true }
-        )
-        return updatedChat
+        );
+        return updatedChat;
       }
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
     updateUserChats: async (parent, args, context) => {
       const updatedUser = await User.findByIdAndUpdate(
         { _id: args._id },
-        { $addToSet: { chats: { _id: args.chatId } }},
+        { $addToSet: { chats: { _id: args.chatId } } },
         { new: true }
       ).populate({
-        path: 'chats',
-        populate: 'users'
-      })
+        path: "chats",
+        populate: "users",
+      });
       return updatedUser;
-    }
+    },
   },
 };
 
