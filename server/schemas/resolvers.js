@@ -60,15 +60,12 @@ const resolvers = {
         return newChat;
     },
     updateChat: async (parent, args, context) => {
-      if (context.user) {
         const updatedChat = await Chat.findByIdAndUpdate(
           { _id: args._id },
           { $addToSet: { messages: { messageText: args.messageText, user: args.user } } },
-          { new: true }
+          { new: false }
         )
         return updatedChat
-      }
-      throw new AuthenticationError('Not logged in');
     },
     updateUserChats: async (parent, args, context) => {
       const updatedUser = await User.findByIdAndUpdate(

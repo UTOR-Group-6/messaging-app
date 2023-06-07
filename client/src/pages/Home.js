@@ -8,13 +8,13 @@ import CreateChat from "../components/CreateChat/CreateChat"
 
 
 export default function Home() {
-	// const { data } = useQuery(QUERY_USER);
-	// let user;
+	const { data } = useQuery(QUERY_USER);
+	let user;
 
-	// if (data) {
-	// 	user = data.user;
-	// }
-	// console.log(user)
+	if (data) {
+		user = data.user;
+	}
+	console.log(user)
 
 	if (Auth.loggedIn()) {
 		return (

@@ -1,35 +1,79 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom';
 import Auth from "../utils/auth"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { QUERY_CHAT, QUERY_USER } from '../utils/queries';
+import { UPDATE_CHAT } from '../utils/mutations';
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
 
 import './Chat.css'
-import Message from '../components/Message/Message'
 import Conversation from '../components/Conversation/Conversation'
 import Navbar from '../components/Navbar/Navbar'
 
 export default function Chat() {
-	const [selectedChat, setSelectedChat] = useState(null);
-	const [findChat, { data: chatData }] = useLazyQuery(QUERY_CHAT)
-	const { loading } = useQuery(QUERY_CHAT)
-	const { data } = useQuery(QUERY_USER)
-
+	const [formState, setFormState] = useState({ messageText: '' });
+	const [selectedChat, setSelectedChat] = useState('');
+	const [findChat, { data: chatData, refetch: refetchChat }] = useLazyQuery(QUERY_CHAT);
+	const [findCurrentUser, data] = useLazyQuery(QUERY_USER);
+	const {loading} = useQuery(QUERY_CHAT);
+	const [send] = useMutation(UPDATE_CHAT);
 
 	const handleChatSelect = async (chatId) => {
         setSelectedChat(chatId);
-		console.log(chatId)
 
-		const chat = await findChat({
+		await findChat({
 			variables: { _id: chatId }
 		})
-
-		console.log(chatData)
-		console.log(data.user.username)
-
+		findCurrentUser();
     }; 	
+
+	const handleFormSubmit = async (event) => {
+		event.preventDefault();
+		// await findCurrentUser();
+
+		if (!formState.messageText) {
+			console.log("null :(")
+			return null;
+		}
+
+		try {
+			const currentUser = data.data.user.username
+			console.log(currentUser)
+
+			const mutationResponse = await send({
+				variables: {
+					_id: selectedChat,
+					messageText: formState.messageText,
+					user: currentUser,
+				}
+			})
+
+			console.log(`sent!: ${mutationResponse.data}`)
+		} catch (err) {
+			console.error(err);
+			return;
+		}
+		setFormState({
+			messageText: ''
+		})
+
+		refetchChat()
+	}
+
+	const handleInputChange = async (event) => {
+		const { name, value } = event.target;
+		setFormState({
+		  ...formState,
+		  [name]:value
+		});
+	  };
+
+	useEffect(() => {
+		if (chatData && data) {
+			setSelectedChat(chatData.chat._id)
+		}
+	}, [chatData, data])
 
 	if (Auth.loggedIn()) {
 		return (
@@ -59,10 +103,10 @@ export default function Chat() {
 								) : (
 									<>
 										{chatData && data && chatData.chat.messages.map((message) => (
-											<div className={`message-div ${message.user === data.user.username ? 'own' : ''}`} key={message._id}>
+											<div className='message-div' key={message._id}>
 												<div className="single-message">
 													{/* update this to profile pictures */}
-													<img className="message-img" src="https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="user profile of existing conversations"/>
+													<p className="message-user">{message.user}</p>
 													<p className="message-text">{message.messageText}</p>
 												</div>  
 											</div>
@@ -70,10 +114,19 @@ export default function Chat() {
 									</>
 								)}
 							</div>
-							<div className="chat-input">
-								<textarea className="chat-input-ta" placeholder="send a message"></textarea>
-								<button className="chat-submit-btn">Send</button>
-							</div>
+							<form className="chat-input" onSubmit={handleFormSubmit}>
+								<textarea 
+									type="messageText"
+									name="messageText"
+									id="messageText"
+									onChange={handleInputChange}
+									value={formState.messageText}
+									className="chat-input-ta" 
+									placeholder="send a message"
+								>
+								</textarea>
+								<button type="submit" className="chat-submit-btn">Send</button>
+							</form>
 						</div>
 					</div>
 				</div>
