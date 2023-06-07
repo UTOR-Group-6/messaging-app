@@ -67,6 +67,8 @@ Mutations:
 - signup - done
 - create chat - by entering another user's username
 - create message - by entering message text
+- update users icon
+- update users username, email, and bio
 
 only of there is time:
 - delete message

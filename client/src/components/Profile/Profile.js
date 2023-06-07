@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { UPDATE_USER_ICON, UPDATE_USER_INFO } from "../../utils/mutations";
 import { QUERY_USER } from "../../utils/queries";
-import { UPDATE_USER_ICON } from "../../utils/mutations";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import "./Profile.css";
 
 // Profile shows info on current user and allows updating
 export default function Profile() {
-  const [formState, setFormState] = useState("");
-  const { data } = useQuery(QUERY_USER);
+  const { loading, error, data } = useQuery(QUERY_USER);
+  const user = data.user;
+
   const [updateUserIcon] = useMutation(UPDATE_USER_ICON);
+  const [updateUserInfo] = useMutation(UPDATE_USER_INFO);
+  console.log(user);
+  const [infoState, setInfo] = useState({
+    username: user.username,
+    email: user.email,
+    bio: user.bio,
+  });
+  console.log(infoState);
+
   const [file, setFile] = useState();
   const [iconURL, setIconURL] = useState();
 
@@ -18,7 +28,9 @@ export default function Profile() {
       setIconURL(undefined);
       return;
     }
+    // catch if file is too large (>16mb)
 
+    // Display image without saving the file
     const url = URL.createObjectURL(file);
     setIconURL(url);
 
@@ -26,36 +38,55 @@ export default function Profile() {
     return () => URL.revokeObjectURL(url);
   }, [file]);
 
-  const handleFormSubmit = async (e) => {
+  const handleInfoChange = (e) => {
+    const { name, value } = e.target;
+    setInfo({ ...infoState, [name]: value });
+  };
+
+  const handleIconSubmit = async (e) => {
     e.preventDefault();
 
-    // save and send image
     console.log(file);
-    // const currentUser = user._id;
-    // console.log(currentUser);
+
     try {
-      const updatedUserIcon = await updateUserIcon({
+      const updatedIconData = await updateUserIcon({
         variables: {
           file: file,
         },
       });
 
-      console.log(updatedUserIcon);
-      return;
+      console.log(updatedIconData);
     } catch (err) {
       console.log(err);
-      return;
+    }
+  };
+
+  const handleInfoSubmit = async (e) => {
+    e.preventDefault();
+    console.log(infoState);
+    // Only update what has changed...
+
+    try {
+      const updatedUserInfo = await updateUserInfo({
+        variables: { ...infoState },
+      });
+
+      console.log(updatedUserInfo);
+      window.alert("Saved!");
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
     <div className="profile">
-      <form className="icon" onSubmit={handleFormSubmit}>
-        <div className="profile-header">
+      <h2>Your Profile</h2>
+      <div className="profile-header">
+        <form className="icon-form" onSubmit={handleIconSubmit}>
           <input
             className="icon-upload-btn"
             type="file"
-            name="userIcon"
+            name="icon"
             accept="image/jpeg,image/png"
             onChange={(e) => setFile(e.target.files[0])}
             filename={file}
@@ -66,18 +97,42 @@ export default function Profile() {
             alt="icon"
             loading="lazy"
           />
-
-          <span className="profile-bio">bio</span>
-        </div>
-        <div className="profile-info">
+          <button type="submit">Save icon</button>
+        </form>
+      </div>
+      <div className="profile-info">
+        <form className="info-form" onSubmit={handleInfoSubmit}>
+          <label>Bio: {user.bio}</label>
+          <input
+            className="profile-bio"
+            name="bio"
+            type="text"
+            value={infoState.bio}
+            onChange={(event) => handleInfoChange(event)}
+          />
           {/* Username */}
-          <p>Username: </p>
+          <label>Username: {user.username}</label>
+          <input
+            className="profile-username"
+            name="username"
+            type="text"
+            value={infoState.username}
+            onChange={(event) => handleInfoChange(event)}
+          />
           {/* Email */}
-          <p>Email: </p>
-          {/* Password */}
-        </div>
-        <button type="submit">Save info</button>
-      </form>
+          <label>Email: {user.email}</label>
+          <input
+            className="profile-email"
+            name="email"
+            type="email"
+            value={infoState.email}
+            onChange={(event) => handleInfoChange(event)}
+          />
+          {/* Enable editing */}
+
+          <button type="submit">Save</button>
+        </form>
+      </div>
     </div>
   );
 }

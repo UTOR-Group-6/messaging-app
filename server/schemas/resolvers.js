@@ -87,21 +87,37 @@ const resolvers = {
       });
       return updatedUser;
     },
-    updateUserIcon: async (parent, file, context) => {
-      const obj = {
-        img: {
-          data: fs.readFileSync(
-            path.join(__dirname + "/uploads/" + file.filename)
-          ),
-          contentType: "image/png",
-        },
-      };
-      const updatedUser = await User.findByIdAndUpdate(
-        { _id: context.id },
-        { icon: obj.img },
-        { new: true }
-      );
-      return updatedUser;
+    updateUserIcon: async (parent, { _id, file }, context) => {
+      if (context.user) {
+        const obj = {
+          img: {
+            data: fs.readFileSync(
+              path.join(__dirname + "/uploads/" + file.filename)
+            ),
+            contentType: "image/png",
+          },
+        };
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { icon: obj.img },
+          { new: true }
+        );
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("Please log in before submitting changes!");
+    },
+    updateUserInfo: async (parent, { username, email, bio }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { username: username, email: email, bio: bio },
+          { new: true }
+        );
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("Please log in before submitting changes!");
     },
   },
 };

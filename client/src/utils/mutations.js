@@ -78,10 +78,21 @@ export const UPDATE_USER_CHATS = gql`
 `;
 
 export const UPDATE_USER_ICON = gql`
-  mutation updateUserIcon($file: File!) {
+  mutation updateUserIcon($file: Upload!) {
     updateUserIcon(file: $file) {
       _id
       icon
+    }
+  }
+`;
+
+export const UPDATE_USER_INFO = gql`
+  mutation updateUserInfo($username: String!, $email: String!, $bio: String!) {
+    updateUserInfo(username: $username, email: $email, bio: $bio) {
+      _id
+      username
+      email
+      bio
     }
   }
 `;

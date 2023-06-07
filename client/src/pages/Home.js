@@ -1,7 +1,5 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
-import { QUERY_USER } from "../utils/queries";
-import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import Navbar from "../components/Navbar/Navbar";
 import CreateChat from "../components/CreateChat/CreateChat";
@@ -9,14 +7,6 @@ import Profile from "../components/Profile/Profile";
 
 export default function Home() {
   // If logged in, home redirects to profile
-
-  // const { data } = useQuery(QUERY_USER);
-  // let user;
-
-  // if (data) {
-  // 	user = data.user;
-  // }
-  // console.log(user)
 
   if (Auth.loggedIn()) {
     return (
