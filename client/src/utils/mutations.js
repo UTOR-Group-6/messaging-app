@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -57,17 +57,37 @@ export const UPDATE_USER_CHATS = gql`
       chats {
         _id
         messages {
-            _id
-            messageText
-            user
-            createdAt
+          _id
+          messageText
+          user
+          createdAt
         }
         users {
-            _id
-            username
-            email
+          _id
+          username
+          email
         }
       }
     }
   }
-`
+`;
+
+export const UPDATE_USER_ICON = gql`
+  mutation updateUserIcon($file: Upload!) {
+    updateUserIcon(file: $file) {
+      _id
+      icon
+    }
+  }
+`;
+
+export const UPDATE_USER_INFO = gql`
+  mutation updateUserInfo($username: String!, $email: String!, $bio: String!) {
+    updateUserInfo(username: $username, email: $email, bio: $bio) {
+      _id
+      username
+      email
+      bio
+    }
+  }
+`;

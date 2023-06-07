@@ -1,55 +1,58 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_FIND_USER = gql`
-    query findUser($username: String!) {
-        findUser(username: $username) {
-            _id
-            username
-            email
-        }
+  query findUser($username: String!) {
+    findUser(username: $username) {
+      _id
+      username
+      email
+      icon
     }
+  }
 `;
 
 export const QUERY_CHAT = gql`
-    query getChat($_id: ID) {
-        chat(_id: $_id) {
-            _id
-            messages {
-                _id
-                messageText
-                user
-                createdAt
-            }
-            users {
-                _id
-                username
-            }
-        }
+  query getChat($_id: ID) {
+    chat(_id: $_id) {
+      _id
+      messages {
+        _id
+        messageText
+        user
+        createdAt
+      }
+      users {
+        _id
+        username
+      }
     }
+  }
 `;
 
 export const QUERY_USER = gql`
-    {
-        user {
-            _id
-            username
-            email
-            chats {
-                _id
-                messages {
-                    _id
-                    messageText
-                    user
-                    createdAt
-                }
-                users {
-                    _id
-                    username
-                    email
-                }
-            }
+  {
+    user {
+      _id
+      username
+      email
+      chats {
+        _id
+        messages {
+          _id
+          messageText
+          user
+          createdAt
         }
+        users {
+          _id
+          username
+          email
+        }
+      }
+      bio
+      icon
     }
+  }
 `;
 
 /* 
@@ -64,6 +67,8 @@ Mutations:
 - signup - done
 - create chat - by entering another user's username
 - create message - by entering message text
+- update users icon
+- update users username, email, and bio
 
 only of there is time:
 - delete message
@@ -71,4 +76,4 @@ only of there is time:
 - update message
 - update chat
 
-*/ 
+*/
