@@ -4,7 +4,7 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    chat: async (parent, { _id }, context) => {
+    chat: async (parent, { _id }, context) => { // find one chat by id
       if (context.user) {
         const chat = await Chat.findOne({ _id }).populate('users')
         return chat;
@@ -13,7 +13,7 @@ const resolvers = {
       throw new AuthenticationError("Please log in")
     },
 
-    findUser: async (parent, { username }) => {
+    findUser: async (parent, { username }) => { // find one user by id
       const user = await User.findOne({ username })
       if (!user) {
         throw new Error('User not found');
@@ -21,7 +21,7 @@ const resolvers = {
       return user;
     },
 
-    user: async (parent, args, context) => {
+    user: async (parent, args, context) => { // find logged in user
       if (context.user) {
         const user = await User.findById(context.user._id).populate({
           path: 'chats',
@@ -36,7 +36,7 @@ const resolvers = {
   },
 
   Mutation: {
-    login: async (parent, { email, password }) => {
+    login: async (parent, { email, password }) => { // login user
       const user = await User.findOne({ email });
 
       if (!user) {
@@ -53,24 +53,24 @@ const resolvers = {
 
       return { token, user };
     },
-    addUser: async (parent, { username, email, password }) => {
+    addUser: async (parent, { username, email, password }) => { // create a new user
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
-    createChat: async (parent, args, context) => {
+    createChat: async (parent, args, context) => { // create a new chat with a user
         const newChat = await Chat.create(args)
         return newChat;
     },
-    updateChat: async (parent, args, context) => {
-        const updatedChat = await Chat.findByIdAndUpdate(
+    updateChat: async (parent, args, context) => { // update chat > used to create messages
+        const updatedChat = await Chat.findByIdAndUpdate( 
           { _id: args._id },
           { $addToSet: { messages: { messageText: args.messageText, user: args.user } } },
           { new: false }
         )
         return updatedChat
     },
-    updateUserChats: async (parent, args, context) => {
+    updateUserChats: async (parent, args, context) => { // update chats array in User Schema
       const updatedUser = await User.findByIdAndUpdate(
         { _id: args._id },
         { $addToSet: { chats: { _id: args.chatId } }},

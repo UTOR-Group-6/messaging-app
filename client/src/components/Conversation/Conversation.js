@@ -7,12 +7,13 @@ import './Conversation.css';
 
 export default function Conversation({ handleChatSelect }) {
 	const { loading, data } = useQuery(QUERY_USER)
-	
+
 	if (loading) {
 		return <p>Loading...</p>
 	}
 	const user = data.user
 
+	// gets all chats of the logged in user, then renders content for each chat in array
 	return (
 		<>
 			{user.chats.map((chat) => {

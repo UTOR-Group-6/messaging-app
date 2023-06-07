@@ -21,14 +21,18 @@ export default function Chat() {
 	const [showForm, setShowForm] = useState(false)
 	const scrollRef = useRef();
 
-
 	const handleChatSelect = async (chatId) => {
+		// takes chatId of conversation selected
         setSelectedChat(chatId);
 
+		// runs QUERY_CHAT based on selected chat's id, then runs query to get data of logged in user
 		await findChat({
 			variables: { _id: chatId }
 		})
+
 		findCurrentUser();
+
+		// displays text box and submit button to send a message
 		setShowForm(true);
     }; 	
 
@@ -36,6 +40,7 @@ export default function Chat() {
 		event.preventDefault();
 
 		if (!formState.messageText) {
+			// prevents function from continuing if user did not enter any text
 			console.log("null :(")
 			return null;
 		}
@@ -59,6 +64,7 @@ export default function Chat() {
 			messageText: ''
 		})
 
+		// refetch chat to display new message created
 		refetchChat()
 	}
 
@@ -76,6 +82,7 @@ export default function Chat() {
 		}
 	}, [chatData, data])
 
+	// scrolls to newest message whenever chatData is updated
 	useEffect(() => {
 		scrollRef.current?.scrollIntoView({behavior: "smooth"})
 	}, [chatData])
