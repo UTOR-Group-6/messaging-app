@@ -6,6 +6,8 @@ const typeDefs = gql`
     username: String
     email: String
     chats: [Chat]
+    bio: String
+    icon: String
   }
 
   type Chat {

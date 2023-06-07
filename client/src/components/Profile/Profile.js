@@ -24,6 +24,7 @@ export default function Profile() {
       email: user.email,
       bio: user.bio,
     });
+    // Need to actually get the picture
     setFile(user.icon);
   }
 
@@ -72,7 +73,6 @@ export default function Profile() {
   const handleInfoSubmit = async (e) => {
     e.preventDefault();
     console.log(infoState);
-    // Only update what has changed...
 
     try {
       const updatedUserInfo = await updateUserInfo({
