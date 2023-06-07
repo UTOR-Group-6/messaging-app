@@ -1,30 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Domine&family=Wix+Madefor+Display&display=swap');
 
 * {
-    font-family: 'Helvetica', 'Arial', sans-serif;
-    font-size: 15px;
+    font-family: 'Wix Madefor Display', sans-serif;
 }
 
 .login-div {
-    background-image: linear-gradient(to right, #1D2B64 0%, #fe86aa  100%);
+    background-image: url(../assets/ocean-background.jpg);
+    background-size: cover;
     display: flex;
-    justify-content: center;
     height: 100vh;
-    
+}
+
+.login-welcome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+.app-title {
+    font-family: 'Domine', serif;
+    color: white;
+    font-size: 70px;
+    text-shadow: 4px 4px rgb(42, 82, 202);
+
+}
+
+.app-tagline {
+    font-family: 'Wix Madefor Display', sans-serif;
+    color: white;
+    font-size: 30px;
+    text-shadow: 3px 3px rgb(42, 82, 202);
 }
 
 .form-div {
-    padding: 20px 30px;
-    background-color: white;
+    padding: 40px 30px;
+    background-color: rgba(255, 255, 255, 0.85);
     border-radius: 3px;
-    display: inline-block;
     margin: auto;
-    margin-top: 150px;
+    margin-left: 0px;
 }
 
 h2 {
+    font-family: 'Domine', serif;
     text-align: center;
-    font-size: 40px;
+    font-size: 60px;
     padding: 40px 0px;
+    
 }
 
 .login-form {
@@ -36,7 +58,7 @@ h2 {
 .input-div {
     padding: 5px 0px;
     width: 100%;
-    margin: 3px 0px;
+    margin: 6px 0px;
     display: flex;
     
 }
@@ -47,11 +69,11 @@ h2 {
     border-radius: 3px;
     padding: 10px;
     width: 100%;
-    
+    font-size: 16px;
 }
 
 .credentials-err {
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .submit-div {
@@ -59,11 +81,11 @@ h2 {
 }
 
 .login-btn {
-    background-image: linear-gradient(to right, #1D2B64 0%, #fe86aa  51%, #1D2B64  100%);
-    margin: 10px;
-    padding: 10px 100px;
+    font-size: 20px;
+    background-image: linear-gradient(to right, #081859 0%, #86defe  51%, #1D2B64  100%);
+    margin: 5px 0px;
+    padding: 10px 120px;
     text-align: center;
-    text-transform: uppercase;
     transition: 0.5s;
     background-size: 200% auto;
     color: white;            
@@ -75,7 +97,6 @@ h2 {
   .login-btn:hover {
     background-position: right center;
     color: #fff;
-    text-decoration: none;
     cursor:pointer
   }
  
@@ -85,9 +106,19 @@ h2 {
 
   .signup-link {
     text-decoration: none;
-    color: #fe86aa; 
+    color: #4e899f; 
   }
 
   .signup-link:hover{
-    color: #ce416b; 
+    color: #86defe; 
+  }
+
+  @media screen and (max-width: 768px) {
+    .login-div {
+        flex-direction: column;
+    }
+    .form-div {
+        margin: auto;
+    }
+
   }

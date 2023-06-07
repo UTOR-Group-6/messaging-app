@@ -10,7 +10,7 @@ const SignupForm = () => {
   const [formState, setFormState] = useState({ username: '', email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const [addUser] = useMutation(ADD_USER, {
-    onError: (error) => {
+    onError: (error) => { // recognize apollo error and display duplicate user message
       if (error.message.includes('E11000 duplicate key error collection')) {
         setErrorMessage('Sorry, that username or email is already taken.');
       }
@@ -20,6 +20,7 @@ const SignupForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     
+    // validation if any fields are blank
     if (!formState.username) {
       setErrorMessage('Please enter a username')
       return;
@@ -32,6 +33,7 @@ const SignupForm = () => {
     }
 
     try {
+      // takes form inputs as args for ADD_USER mutation
       const mutationResponse = await addUser({
         variables: { 
           username: formState.username,
@@ -47,25 +49,33 @@ const SignupForm = () => {
       console.error(err);
       return;
     }
+
+    // clear inputs after a successful signup
     setFormState({
       username: '',
       email: '',
       password: ''
     });
+
+    // clears error message
     setErrorMessage('');
   };  
 
+  // save input values into states to access them
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormState({
       ...formState,
       [name]:value
     });
-    console.log(formState.username)
   };
   
   return (
     <div className="signup-div">
+        <div className="login-welcome">
+          <h1 className="app-title">Welcome to Blub</h1>
+          <p className="app-tagline">Your favourite ocean themed chat room</p>
+        </div>
       <div className="form-div">
         <h2>Signup</h2>
         <form className="signup-form" onSubmit={handleFormSubmit}>
