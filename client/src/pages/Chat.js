@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 import Auth from "../utils/auth"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-
 import { QUERY_CHAT, QUERY_USER } from '../utils/queries';
 import { UPDATE_CHAT } from '../utils/mutations';
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
@@ -56,10 +55,10 @@ export default function Chat() {
 			console.log("null :(")
 			return null;
 		}
+	}
 
-Modal.setAppElement('#root');
+	Modal.setAppElement('#root');
 
-export default function Chat() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 	const handleChatCreate = async (event) => {
 
