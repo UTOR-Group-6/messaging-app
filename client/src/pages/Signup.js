@@ -73,7 +73,7 @@ const SignupForm = () => {
   return (
     <div className="signup-div">
         <div className="login-welcome">
-          <h1 className="app-title">Welcome to Aqua</h1>
+          <h1 className="app-title">Welcome to Blub</h1>
           <p className="app-tagline">Your favourite ocean themed chat room</p>
         </div>
       <div className="form-div">
