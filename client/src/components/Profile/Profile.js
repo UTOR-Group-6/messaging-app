@@ -6,21 +6,29 @@ import "./Profile.css";
 
 // Profile shows info on current user and allows updating
 export default function Profile() {
-  const { loading, error, data } = useQuery(QUERY_USER);
-  const user = data.user;
+  const { data } = useQuery(QUERY_USER);
+  const [infoState, setInfo] = useState({
+    username: "",
+    email: "",
+    bio: "",
+  });
+  const [iconURL, setIconURL] = useState();
+  const [file, setFile] = useState();
+  let user;
+
+  if (data) {
+    user = data.user;
+    console.log(user);
+    setInfo({
+      username: user.username,
+      email: user.email,
+      bio: user.bio,
+    });
+    setFile(user.icon);
+  }
 
   const [updateUserIcon] = useMutation(UPDATE_USER_ICON);
   const [updateUserInfo] = useMutation(UPDATE_USER_INFO);
-  console.log(user);
-  const [infoState, setInfo] = useState({
-    username: user.username,
-    email: user.email,
-    bio: user.bio,
-  });
-  console.log(infoState);
-
-  const [file, setFile] = useState();
-  const [iconURL, setIconURL] = useState();
 
   // Effect to create a preview whenever file is changed
   useEffect(() => {
@@ -102,7 +110,7 @@ export default function Profile() {
       </div>
       <div className="profile-info">
         <form className="info-form" onSubmit={handleInfoSubmit}>
-          <label>Bio: {user.bio}</label>
+          <label>Bio: {infoState.bio}</label>
           <input
             className="profile-bio"
             name="bio"
@@ -111,7 +119,7 @@ export default function Profile() {
             onChange={(event) => handleInfoChange(event)}
           />
           {/* Username */}
-          <label>Username: {user.username}</label>
+          <label>Username: {infoState.username}</label>
           <input
             className="profile-username"
             name="username"
@@ -120,7 +128,7 @@ export default function Profile() {
             onChange={(event) => handleInfoChange(event)}
           />
           {/* Email */}
-          <label>Email: {user.email}</label>
+          <label>Email: {infoState.email}</label>
           <input
             className="profile-email"
             name="email"
