@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import Navbar from "../components/Navbar/Navbar";
 import CreateChat from "../components/CreateChat/CreateChat";
+import Profile from "../components/Profile/Profile";
 
 export default function Home() {
   // If logged in, home redirects to profile
@@ -26,6 +27,7 @@ export default function Home() {
           <p>temporary link:</p>
           <Link to="/chats">go to chats</Link>
           <CreateChat />
+          <Profile />
         </div>
       </>
     );

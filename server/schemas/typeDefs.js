@@ -31,7 +31,6 @@ const typeDefs = gql`
     user: User
     chat(_id: ID): Chat
     findUser(username: String): User
-    profile: Profile
   }
 
   type Mutation {
@@ -40,6 +39,7 @@ const typeDefs = gql`
     createChat(users: [ID]): Chat
     updateChat(_id: ID, messageText: String, user: String): Chat
     updateUserChats(_id: ID, chatId: ID): User
+    updateUserIcon(file: File): User
   }
 `;
 

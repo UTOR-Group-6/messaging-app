@@ -30,18 +30,6 @@ const resolvers = {
 
       throw new AuthenticationError("Please log in!");
     },
-
-    profile: async (parent, args, context) => {
-      if (context.user) {
-        const profile = await Profile.findOne({
-          user: context.user._id,
-        }).populate("user");
-
-        return profile;
-      }
-
-      throw new AuthenticationError("Please log in!");
-    },
   },
 
   Mutation: {
@@ -97,6 +85,22 @@ const resolvers = {
         path: "chats",
         populate: "users",
       });
+      return updatedUser;
+    },
+    updateUserIcon: async (parent, file, context) => {
+      const obj = {
+        img: {
+          data: fs.readFileSync(
+            path.join(__dirname + "/uploads/" + file.filename)
+          ),
+          contentType: "image/png",
+        },
+      };
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: context.id },
+        { icon: obj.img },
+        { new: true }
+      );
       return updatedUser;
     },
   },

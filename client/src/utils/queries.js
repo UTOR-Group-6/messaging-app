@@ -6,6 +6,7 @@ export const QUERY_FIND_USER = gql`
       _id
       username
       email
+      icon
     }
   }
 `;
@@ -48,18 +49,6 @@ export const QUERY_USER = gql`
           email
         }
       }
-    }
-  }
-`;
-
-export const QUERY_PROFILE = gql`
-  {
-    profile {
-      user {
-        _id
-        username
-        email
-      }
       bio
       icon
     }
@@ -72,7 +61,6 @@ Queries:
 - Get one chat by id (populate messages and users)
 - Get user who is signed in (GET ME)- context.user - done
 - Get user by username - NOT context user (to look up people to add to chat)
-- Get profile of user who is signed in
 
 Mutations:
 - login - done
