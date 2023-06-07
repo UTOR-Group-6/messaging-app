@@ -38,7 +38,7 @@ export default function Profile() {
     }
     // catch if file is too large (>16mb)
 
-    // Display image without saving the file
+    // Display image
     const url = URL.createObjectURL(file);
     setIconURL(url);
 
