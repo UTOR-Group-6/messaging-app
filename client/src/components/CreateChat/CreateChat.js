@@ -21,20 +21,18 @@ export default function CreateChat({ onClose }) {
             return;
         }
         
-        try {      
+        try {
+            // runs QUERY_USER and QUERY_FIND_USER to get current user, and searched user id's      
             const searchedUser = userData.findUser._id
-            console.log(searchedUser)
             const currentUser = data.user._id
-            console.log(currentUser)
 
-
+            // mutations to create chat, and push the newly created chat into both user's Chat arrays
             const mutationResponse = await create({
                 variables: { users: [searchedUser, currentUser] }
             });
 
             const chatId = mutationResponse.data.createChat._id;
             console.log(chatId)
-            console.log(mutationResponse)
 
             const updatedCurrentUser = await updateUser({
                 variables: { 

@@ -6,7 +6,14 @@ import CreateChat from "../components/CreateChat/CreateChat";
 import Profile from "../components/Profile/Profile";
 
 export default function Home() {
-  // If logged in, home redirects to profile
+
+	const { data } = useQuery(QUERY_USER);
+	let user;
+
+	if (data) {
+		user = data.user;
+	}
+	console.log(user)
 
   if (Auth.loggedIn()) {
     return (

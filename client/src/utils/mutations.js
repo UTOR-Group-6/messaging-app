@@ -43,12 +43,7 @@ export const UPDATE_CHAT = gql`
       messages {
         _id
         messageText
-        user
         createdAt
-      }
-      users {
-        _id
-        username
       }
     }
   }

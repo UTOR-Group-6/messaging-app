@@ -8,13 +8,13 @@ import "./Login.css"
 
 const LoginForm = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN_USER);
+  const [login, { error }] = useMutation(LOGIN_USER); // if error in mutation, populates error message
   
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
 
     try {
+      // take input values as args for LOGIN_USER mutation
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
       });
@@ -26,12 +26,15 @@ const LoginForm = () => {
       console.error(err);
       return;
     }
+
+    // clear form after sucessful login
     setFormState({
       email: '',
       password: ''
     });
   };  
 
+  // save input values into states to access them
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormState({
@@ -42,6 +45,10 @@ const LoginForm = () => {
   
   return (
     <div className="login-div">
+      <div className="login-welcome">
+        <h1 className="app-title">Welcome to Blub</h1>
+        <p className="app-tagline">Your favourite ocean themed chat room</p>
+      </div>
       <div className="form-div">
         <h2>Login</h2>
         <form className="login-form" onSubmit={handleFormSubmit}>
