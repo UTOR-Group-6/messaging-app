@@ -3,13 +3,18 @@ import { Navigate } from 'react-router-dom';
 import Auth from "../utils/auth"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+
 import { QUERY_CHAT, QUERY_USER } from '../utils/queries';
 import { UPDATE_CHAT } from '../utils/mutations';
 import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
+import { CREATE_CHAT } from '../utils/mutations';
+import Modal from 'react-modal';
+
 
 import './Chat.css'
 import Conversation from '../components/Conversation/Conversation'
 import Navbar from '../components/Navbar/Navbar'
+import CreateChat from '../components/CreateChat/CreateChat';
 
 export default function Chat() {
 	const [formState, setFormState] = useState({ messageText: '' });
@@ -51,6 +56,12 @@ export default function Chat() {
 			console.log("null :(")
 			return null;
 		}
+
+Modal.setAppElement('#root');
+
+export default function Chat() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+	const handleChatCreate = async (event) => {
 
 		try {
 			const currentUser = data.data.user.username
@@ -104,7 +115,7 @@ export default function Chat() {
 						<div className="sidebar-wrapper">
 								<div className="sidebar-top">
 									<input className="search-bar" placeholder="Search for conversations"/>
-									<FontAwesomeIcon className="add-chat-btn" icon={faCirclePlus} />
+									<FontAwesomeIcon className="add-chat-btn" icon={faCirclePlus} onClick={() => setIsModalOpen(true)} />
 								</div>
 								<div 
 								className="conversation-div"
@@ -152,6 +163,13 @@ export default function Chat() {
 						</div>
 					</div>
 				</div>
+				<Modal
+					isOpen={isModalOpen}
+					onRequestClose={() => setIsModalOpen(false)}
+					contentLabel="Create Chat Modal"
+				>
+					<CreateChat onClose={() => setIsModalOpen(false)} />
+				</Modal>
 			</>
 		)
 	} else {

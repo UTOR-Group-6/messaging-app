@@ -4,7 +4,7 @@ import { QUERY_USER, QUERY_FIND_USER } from '../../utils/queries';
 import { useMutation, useLazyQuery, useQuery } from '@apollo/client';
 import './CreateChat.css'
 
-export default function CreateChat() {
+export default function CreateChat({ onClose }) {
     const [formState, setFormState] = useState({ username: '' });
     const [errorMessage, setErrorMessage] = useState('');
     const [create] = useMutation(CREATE_CHAT);
@@ -55,7 +55,8 @@ export default function CreateChat() {
                 username: ''
             });
             setErrorMessage('');
-
+           
+            onClose();
 
         } catch (err) {
             setErrorMessage('Sorry, that user does not exist')
