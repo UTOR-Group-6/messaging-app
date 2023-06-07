@@ -23,7 +23,10 @@ const resolvers = {
 
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id).populate('chats')
+        const user = await User.findById(context.user._id).populate({
+          path: 'chats',
+          populate: 'users'
+        })
 
         return user;
       }

@@ -18,6 +18,7 @@ export default function Chat() {
 	const [findCurrentUser, data] = useLazyQuery(QUERY_USER);
 	const {loading} = useQuery(QUERY_CHAT);
 	const [send] = useMutation(UPDATE_CHAT);
+	const [showForm, setShowForm] = useState(false)
 
 	const handleChatSelect = async (chatId) => {
         setSelectedChat(chatId);
@@ -26,6 +27,7 @@ export default function Chat() {
 			variables: { _id: chatId }
 		})
 		findCurrentUser();
+		setShowForm(true);
     }; 	
 
 	const handleFormSubmit = async (event) => {
@@ -39,9 +41,8 @@ export default function Chat() {
 
 		try {
 			const currentUser = data.data.user.username
-			console.log(currentUser)
 
-			const mutationResponse = await send({
+			await send({
 				variables: {
 					_id: selectedChat,
 					messageText: formState.messageText,
@@ -49,7 +50,6 @@ export default function Chat() {
 				}
 			})
 
-			console.log(`sent!: ${mutationResponse.data}`)
 		} catch (err) {
 			console.error(err);
 			return;
@@ -114,19 +114,21 @@ export default function Chat() {
 									</>
 								)}
 							</div>
-							<form className="chat-input" onSubmit={handleFormSubmit}>
-								<textarea 
-									type="messageText"
-									name="messageText"
-									id="messageText"
-									onChange={handleInputChange}
-									value={formState.messageText}
-									className="chat-input-ta" 
-									placeholder="send a message"
-								>
-								</textarea>
-								<button type="submit" className="chat-submit-btn">Send</button>
-							</form>
+							{showForm && (
+								<form className="chat-input" onSubmit={handleFormSubmit}>
+									<textarea 
+										type="messageText"
+										name="messageText"
+										id="messageText"
+										onChange={handleInputChange}
+										value={formState.messageText}
+										className="chat-input-ta" 
+										placeholder="send a message"
+									>
+									</textarea>
+									<button type="submit" className="chat-submit-btn">Send</button>
+								</form>
+							)}
 						</div>
 					</div>
 				</div>
