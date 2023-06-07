@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Navigate } from 'react-router-dom';
 import Auth from "../utils/auth"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,6 +19,8 @@ export default function Chat() {
 	const {loading} = useQuery(QUERY_CHAT);
 	const [send] = useMutation(UPDATE_CHAT);
 	const [showForm, setShowForm] = useState(false)
+	const scrollRef = useRef();
+
 
 	const handleChatSelect = async (chatId) => {
         setSelectedChat(chatId);
@@ -32,7 +34,6 @@ export default function Chat() {
 
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-		// await findCurrentUser();
 
 		if (!formState.messageText) {
 			console.log("null :(")
@@ -75,6 +76,10 @@ export default function Chat() {
 		}
 	}, [chatData, data])
 
+	useEffect(() => {
+		scrollRef.current?.scrollIntoView({behavior: "smooth"})
+	}, [chatData])
+
 	if (Auth.loggedIn()) {
 		return (
 			<>
@@ -103,7 +108,7 @@ export default function Chat() {
 								) : (
 									<>
 										{chatData && data && chatData.chat.messages.map((message) => (
-											<div className='message-div' key={message._id}>
+											<div className='message-div' key={message._id} ref={scrollRef}>
 												<div className="single-message">
 													{/* update this to profile pictures */}
 													<p className="message-user">{message.user}</p>
