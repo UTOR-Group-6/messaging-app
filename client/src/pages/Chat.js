@@ -55,12 +55,6 @@ export default function Chat() {
 			console.log("null :(")
 			return null;
 		}
-	}
-
-	Modal.setAppElement('#root');
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-	const handleChatCreate = async (event) => {
 
 		try {
 			const currentUser = data.data.user.username
@@ -103,6 +97,35 @@ export default function Chat() {
 	useEffect(() => {
 		scrollRef.current?.scrollIntoView({behavior: "smooth"})
 	}, [chatData])
+
+
+	Modal.setAppElement('#root');
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+	const handleChatCreate = async (event) => {
+
+		try {
+			const currentUser = data.data.user.username
+
+			await send({
+				variables: {
+					_id: selectedChat,
+					messageText: formState.messageText,
+					user: currentUser,
+				}
+			})
+
+		} catch (err) {
+			console.error(err);
+			return;
+		}
+		setFormState({
+			messageText: ''
+		})
+
+		// refetch chat to display new message created
+		refetchChat()
+	}
 
 
 	if (Auth.loggedIn()) {
