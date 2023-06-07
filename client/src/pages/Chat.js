@@ -34,6 +34,13 @@ export default function Chat() {
 
 		// displays text box and submit button to send a message
 		setShowForm(true);
+
+		// manually refetch every second to get new messages
+
+		function refetchMessages() {
+			refetchChat()
+		}
+		setInterval(refetchMessages, 1000)
     }; 	
 
 	const handleFormSubmit = async (event) => {
@@ -86,6 +93,7 @@ export default function Chat() {
 	useEffect(() => {
 		scrollRef.current?.scrollIntoView({behavior: "smooth"})
 	}, [chatData])
+
 
 	if (Auth.loggedIn()) {
 		return (
