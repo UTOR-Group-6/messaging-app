@@ -3,7 +3,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client'
 import { QUERY_USER } from '../../utils/queries';
 import './Conversation.css';
-import crab from "../../assets/icons/crab.jpeg"
+import whale from "../../assets/icons/whale.jpeg"
 
 
 export default function Conversation({ handleChatSelect }) {
@@ -25,7 +25,7 @@ export default function Conversation({ handleChatSelect }) {
 						conversationid={chat._id}
 						onClick={() => handleChatSelect(chat._id)}
 					>
-						<img className="conversation-img" src={crab} alt="user profile of existing conversations"/>
+						<img className="conversation-img" src={whale} alt="user profile of existing conversations"/>
 						{chat.users[0].username === user.username ? (
 							<span>{chat.users[1].username}</span>
 						) : (
