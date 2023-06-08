@@ -31,8 +31,8 @@ const userSchema = new Schema({
     trim: true,
   },
   icon: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    trim: true,
   },
 });
 

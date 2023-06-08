@@ -35,6 +35,8 @@ export const QUERY_USER = gql`
       _id
       username
       email
+      bio
+      icon
       chats {
         _id
         messages {
@@ -49,8 +51,6 @@ export const QUERY_USER = gql`
           email
         }
       }
-      bio
-      icon
     }
   }
 `;
