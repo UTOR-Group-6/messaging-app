@@ -1,14 +1,13 @@
 import React from "react";
 import Auth from "../../utils/auth";
-import logoImage from '../../assets/logo.png'
 import "./Navbar.css"
 
 function Nav() {
     return (
         <header className="nav-div">
-            <div className="logo-div">
-                <img src={logoImage} alt="spark logo" className="logo-image"/>
-            </div>
+            <a href="/" className="logo-div">
+                <h1>BLUB</h1>
+            </a>
             <nav>
                 <ul className="navigator-ul">
                     <li className="navigator-li">

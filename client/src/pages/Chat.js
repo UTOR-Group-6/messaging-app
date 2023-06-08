@@ -127,16 +127,15 @@ export default function Chat() {
 		refetchChat()
 	}
 
-
 	if (Auth.loggedIn()) {
 		return (
-			<>
+			<div className="page-div">
 				<Navbar />
 				<div className="chat-div">
 					<div className="sidebar">
 						<div className="sidebar-wrapper">
 								<div className="sidebar-top">
-									<input className="search-bar" placeholder="Search for conversations"/>
+									<p>ALL BLUBS</p>
 									<FontAwesomeIcon className="add-chat-btn" icon={faCirclePlus} onClick={() => setIsModalOpen(true)} />
 								</div>
 								<div 
@@ -184,15 +183,16 @@ export default function Chat() {
 							)}
 						</div>
 					</div>
-				</div>
-				<Modal
+					<Modal
+					className="create-chat-modal"
 					isOpen={isModalOpen}
 					onRequestClose={() => setIsModalOpen(false)}
 					contentLabel="Create Chat Modal"
-				>
+						>
 					<CreateChat onClose={() => setIsModalOpen(false)} />
-				</Modal>
-			</>
+					</Modal>
+				</div>
+			</div>
 		)
 	} else {
 		return (
