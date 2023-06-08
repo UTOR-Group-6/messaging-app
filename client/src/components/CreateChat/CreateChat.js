@@ -81,6 +81,7 @@ export default function CreateChat({ onClose }) {
     return (
         <div className="user-search-div">
             <form className="user-search-form" onSubmit={handleCreateChat}>
+                <p className="user-search-title">Start a blub with anyone!</p>
                 <div className="user-search">
                     <div className="username-div">
                         <input
@@ -93,7 +94,7 @@ export default function CreateChat({ onClose }) {
                         />
                     </div>          
                     <div className="create-btn-div">
-                        <button type="submit" className="create-btn">Create Chat</button>
+                        <button type="submit" className="create-btn">Create Blub</button>
                     </div>
                 </div>
                 {errorMessage && (

@@ -1,9 +1,22 @@
+a, a:link, a:visited, a:focus, a:hover, a:active{
+    color:rgb(253, 253, 253);
+    text-decoration:none;
+    cursor: pointer;
+}
+
 .nav-div {
     height: 70px;
-    background-image: linear-gradient(to right, #fdfdfd 0%, #1282e4  100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.logo-div h1 {
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    font-size: 55px;
+    margin-left: 15px;
+    letter-spacing: 6px;
 }
 
 .navigator-ul {
@@ -18,19 +31,26 @@
     text-decoration: none;
     font-size: 20px;
     color: white;
-    padding: 7px 15px;
-    border: 1px solid white;
-    border-radius: 10px;
+    display: inline-block;
+    position: relative;
+    margin-right: 4px;
+    padding: 5px 0px;
 }
 
-.navigator-li a:hover {
-    color: #1282e4 ;
-    background-color: white;
-
-
+.navigator-li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 0.5px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transition: transform 0.25s ease-out;
 }
 
-.logo-image {
-    height: 70px;
+.navigator-li a:hover::after {
+    transform: scaleX(1);
+
 
 }
