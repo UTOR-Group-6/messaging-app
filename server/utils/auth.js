@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const secret = 'mysecretsshhhhh';
-const expiration = '2h';
+const expiration = '2 days';
 
 module.exports = {
   authMiddleware: function ({ req }) {
@@ -15,8 +15,8 @@ module.exports = {
     } try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
-    } catch {
-      console.log('Invalid token');
+    } catch (error) {
+      console.log('Invalid token', error);
       return res.status(400).json({ message: 'invalid token!' });
     }
 

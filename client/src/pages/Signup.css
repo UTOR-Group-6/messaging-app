@@ -1,0 +1,63 @@
+.signup-div {
+    background-image: url(../assets/ocean-surface-bg.jpg);
+    background-size:cover;
+    background-position: 67% center;
+    display: flex;
+    height: 100vh;
+}
+
+
+.signup-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.signup-btn {
+    font-size: 20px;
+    background-image: linear-gradient(to right, #081859 0%, #86defe  51%, #1D2B64  100%);
+    margin: 10px 0px;
+    padding: 10px 120px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 4px;
+    display: block;
+}
+
+  .signup-btn:hover {
+    background-position: right center;
+    color: #fff;
+    cursor:pointer
+  }
+
+  .login-link {
+    text-decoration: none;
+    color: #4e899f; 
+  }
+
+  .login-link:hover{
+    color: #86defe; 
+  }
+
+  @media screen and (max-width: 768px) {
+    .signup-div {
+        flex-direction: column;
+    }
+    .form-div {
+      margin: auto;
+    }
+    .login-welcome {
+      text-align: center;
+    }
+    .app-title {
+      font-size: 55px;
+    }
+    .app-tagline {
+      font-size: 30px;
+    }
+
+  }

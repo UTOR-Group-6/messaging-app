@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Domine&family=Wix+Madefor+Display:wght@400;700&display=swap');
+
+.user-search-div {
+    background-image:url(../../assets/transparent-bubble-clip-art-creation-creatures-4.png);
+    background-size: cover;
+    display: flex;
+    width: 400px;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-search-form {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-search-title {
+    color: white;
+    font-weight: 700;
+    font-size: 22px;
+    text-shadow: 2px 2px rgb(32, 69, 194);
+    margin-bottom: 15px;
+}
+
+.user-search {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.username-div input {
+    padding: 5px 15px 5px 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    font-size: 15px;
+}
+
+.create-btn {
+    padding: 5px 10px;
+    font-size: 15px;
+    background-image: linear-gradient(to right, #6a5cb6 0%, #bab8ff  51%, #6a5cb6  100%);
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 5px;
+    display: block;
+}
+
+.create-btn:hover {
+    background-position: right center;
+    color: #fff;
+    cursor:pointer
+}
+
+.username-err {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px
+}

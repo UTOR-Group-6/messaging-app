@@ -1,0 +1,14 @@
+.home-div {
+    background-image: url(../assets/ocean-background.jpg);
+    height: 100vh;
+    background-size: cover;
+
+}
+
+.profile-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin-top: 20px;
+}

@@ -1,0 +1,77 @@
+.icon-options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  margin: 10px;
+}
+
+.info-form {
+  border: 2px solid rgb(88, 88, 88);
+  margin: 15px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.save-btn {
+  font-size: 16px;
+  background-color: rgb(81, 185, 81);
+  text-align: center;
+  border: none;
+  padding: 10px 32px;
+  display: inline-block;
+}
+
+.profile-info {
+  margin-right: 15px;
+}
+
+.profile-bio input {
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.profile-username input {
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.profile-email input {
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+#crab {
+  background-image: url(../../assets/icons/crab.jpeg);
+  background-size: cover;
+}
+
+#fish {
+  background-image: url(../../assets/icons/fish.jpeg);
+  background-size: cover;
+}
+
+#octopus {
+  background-image: url(../../assets/icons/octopus.jpeg);
+  background-size: cover;
+}
+
+#shell {
+  background-image: url(../../assets/icons/shell.jpeg);
+  background-size: cover;
+}
+
+#starfish {
+  background-image: url(../../assets/icons/starfish.jpeg);
+  background-size: cover;
+}
+
+#whale {
+  background-image: url(../../assets/icons/whale.jpeg);
+  background-size: cover;
+}

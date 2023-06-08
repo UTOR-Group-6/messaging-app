@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Domine&family=Wix+Madefor+Display:wght@400;700&display=swap');
+
+* {
+    font-family: 'Wix Madefor Display', sans-serif;
+}
+
+.login-div {
+    background-image: url(../assets/ocean-surface-bg.jpg);
+    background-size:cover;
+    background-position: 67% center;
+    display: flex;
+    height: 100vh;
+}
+
+.login-welcome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+.app-title {
+    font-family: 'Domine', serif;
+    color: rgb(42, 82, 202);
+    font-size: 70px;
+    text-shadow: 4px 4px rgb(255, 255, 255);
+
+}
+
+.app-tagline {
+    font-family: 'Wix Madefor Display', sans-serif;
+    color: rgb(42, 82, 202);
+    font-size: 30px;
+    text-shadow: 3px 3px rgb(255, 255, 255);
+}
+
+.form-div {
+    padding: 40px 30px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 3px;
+    margin: auto;
+    margin-left: 0px;
+}
+
+h2 {
+    font-family: 'Domine', serif;
+    text-align: center;
+    font-size: 60px;
+    padding: 40px 0px;
+    
+}
+
+.login-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input-div {
+    padding: 5px 0px;
+    width: 100%;
+    margin: 6px 0px;
+    display: flex;
+    
+}
+
+.input-div input {
+    border: 1px solid rgb(215, 215, 215);
+    background-color: white;
+    border-radius: 3px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.credentials-err {
+    font-size: 13px;
+}
+
+.submit-div {
+    margin: 5px 0px;
+}
+
+.login-btn {
+    font-size: 20px;
+    background-image: linear-gradient(to right, #081859 0%, #86defe  51%, #1D2B64  100%);
+    margin: 5px 0px;
+    padding: 10px 120px;
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 4px;
+    display: block;
+}
+
+  .login-btn:hover {
+    background-position: right center;
+    color: #fff;
+    cursor:pointer
+  }
+ 
+  .redirect {
+    margin: 15px;
+  }
+
+  .signup-link {
+    text-decoration: none;
+    color: #4e899f; 
+  }
+
+  .signup-link:hover{
+    color: #86defe; 
+  }
+
+  @media screen and (max-width: 768px) {
+    .login-div {
+        flex-direction: column;
+    }
+    .form-div {
+        margin: auto;
+    }
+
+  }

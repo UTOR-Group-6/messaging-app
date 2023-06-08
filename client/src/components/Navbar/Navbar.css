@@ -1,0 +1,55 @@
+a, a:link, a:visited, a:focus, a:hover, a:active{
+    text-decoration:none;
+    cursor: pointer;
+}
+
+.nav-div {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-div h1 {
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    font-size: 55px;
+    margin-left: 15px;
+    letter-spacing: 6px;
+}
+
+.navigator-ul {
+    list-style: none;
+}
+
+.navigator-li {
+    margin-right: 20px;
+}
+
+.navigator-li a {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: inline-block;
+    position: relative;
+    margin-right: 4px;
+    padding: 5px 0px;
+}
+
+.navigator-li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 0.5px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transition: transform 0.25s ease-out;
+}
+
+.navigator-li a:hover::after {
+    transform: scaleX(1);
+
+
+}

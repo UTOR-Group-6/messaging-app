@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,10 +7,11 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import Chat from './pages/Chat';
-import LoginForm from './components/LoginForm'
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home'
+import Chat from './pages/Chat';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -34,10 +36,12 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <LoginForm />
-        <Switch>
-          <Route exact path='/chat' component={Chat} />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/chats' element={<Chat />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+        </Routes>
       </Router>
     </ApolloProvider>
   );
