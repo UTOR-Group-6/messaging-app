@@ -5,17 +5,17 @@ import Navbar from "../components/Navbar/Navbar";
 import CreateChat from "../components/CreateChat/CreateChat";
 import Profile from "../components/Profile/Profile";
 
+import './Home.css'
+
 export default function Home() {
   if (Auth.loggedIn()) {
     return (
-      <>
+      <div className="home-div">
         <Navbar />
-        <div className="home-div">
-          {/* we can remove this, just here for movement to chat page */}
-          <CreateChat />
+        <div className="profile-div">
           <Profile />
         </div>
-      </>
+      </div>
     );
   } else {
     return (

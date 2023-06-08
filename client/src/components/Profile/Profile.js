@@ -60,12 +60,13 @@ export default function Profile() {
         <div>Loading...</div>
       ) : (
         <div className="profile-body">
+          <p className="welcome-msg">Welcome to Blub</p>
           {updatingProfile ? (
             <ProfileForm
               user={(user.username, user.email, user.bio, user.icon)}
             />
           ) : (
-            <>
+            <div className="profile-form-div">
               <div className="profile-header">
                 <img srcSet={userIcon} className="profile-icon" alt="icon" />
               </div>
@@ -74,7 +75,7 @@ export default function Profile() {
                 <li className="profile-username">Username: {user.username}</li>
                 <li className="profile-email">Email: {user.email}</li>
               </ul>
-            </>
+            </div>
           )}
           <button className="edit-btn" onClick={toggleUpdateProfile}>
             {updatingProfile ? "Finish" : "Edit"}

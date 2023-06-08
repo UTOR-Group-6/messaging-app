@@ -1,16 +1,32 @@
 .profile {
-  background-color: white;
-  display: inline-block;
-  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.891);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   width: 70%;
   margin: 5px 0px;
   font-size: 20px;
+  border: 5px;
+  border-radius: 5px;
+}
+
+.welcome-msg {
+  font-size: 50px;
+  font-weight: 700;
 }
 
 .profile-body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.profile-form-div {
+  border: 2px solid rgb(88, 88, 88);
+  margin: 15px;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .profile-body ul {
@@ -39,5 +55,6 @@
   background-color: rgb(86, 168, 223);
   text-align: center;
   border: none;
-  padding: 15px 32px;
+  padding: 10px 32px;
+  border-radius: 5px;
 }
