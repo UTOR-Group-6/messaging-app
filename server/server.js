@@ -3,7 +3,6 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const db = require("./config/connection");
 const { authMiddleware } = require("./utils/auth");
-const multer = require("multer");
 
 const { typeDefs, resolvers } = require("./schemas");
 
@@ -17,19 +16,6 @@ const server = new ApolloServer({
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-const upload = multer({ storage: storage });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));

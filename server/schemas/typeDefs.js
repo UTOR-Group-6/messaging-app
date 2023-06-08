@@ -41,8 +41,12 @@ const typeDefs = gql`
     createChat(users: [ID]): Chat
     updateChat(_id: ID, messageText: String, user: String): Chat
     updateUserChats(_id: ID, chatId: ID): User
-    updateUserIcon(imgUrl: String): User
-    updateUserInfo(username: String, email: String, bio: String): User
+    updateUserInfo(
+      username: String
+      email: String
+      bio: String
+      icon: String
+    ): User
   }
 `;
 

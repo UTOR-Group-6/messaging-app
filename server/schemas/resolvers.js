@@ -95,23 +95,11 @@ const resolvers = {
       });
       return updatedUser;
     },
-    updateUserIcon: async (parent, imgUrl, context) => {
+    updateUserInfo: async (parent, { username, email, bio, icon }, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { icon: imgUrl },
-          { new: true }
-        );
-        return updatedUser;
-      }
-
-      throw new AuthenticationError("Please log in before submitting changes!");
-    },
-    updateUserInfo: async (parent, { username, email, bio }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { username: username, email: email, bio: bio },
+          { username: username, email: email, bio: bio, icon: icon },
           { new: true }
         );
         return updatedUser;
