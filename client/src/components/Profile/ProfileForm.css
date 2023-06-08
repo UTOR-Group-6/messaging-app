@@ -11,6 +11,9 @@
   margin: 10px;
 }
 
+.icon :hover {
+}
+
 .save-btn {
   font-size: 16px;
   background-color: rgb(40, 144, 40);
@@ -21,31 +24,31 @@
 }
 
 #crab {
-  background-image: url(../../assets/crab.jpeg);
+  background-image: url(../../assets/icons/crab.jpeg);
   background-size: cover;
 }
 
 #fish {
-  background-image: url(../../assets/fish.jpeg);
+  background-image: url(../../assets/icons/fish.jpeg);
   background-size: cover;
 }
 
 #octopus {
-  background-image: url(../../assets/octopus.jpeg);
+  background-image: url(../../assets/icons/octopus.jpeg);
   background-size: cover;
 }
 
 #shell {
-  background-image: url(../../assets/shell.jpeg);
+  background-image: url(../../assets/icons/shell.jpeg);
   background-size: cover;
 }
 
 #starfish {
-  background-image: url(../../assets/starfish.jpeg);
+  background-image: url(../../assets/icons/starfish.jpeg);
   background-size: cover;
 }
 
 #whale {
-  background-image: url(../../assets/whale.jpeg);
+  background-image: url(../../assets/icons/whale.jpeg);
   background-size: cover;
 }

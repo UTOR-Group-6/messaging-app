@@ -4,13 +4,51 @@ import { useQuery } from "@apollo/client";
 import ProfileForm from "./ProfileForm";
 import "./Profile.css";
 
+// Import images
+import {
+  crab,
+  fish,
+  octopus,
+  shell,
+  starfish,
+  whale,
+} from "../../assets/icons/index";
+
 export default function Profile() {
   const { loading, data } = useQuery(QUERY_USER);
   const [updatingProfile, setUpdatingProfile] = useState(false);
   const user = data?.user || [];
-  const iconPath = user.icon
-    ? "../../assets/" + user.icon + ".jpeg"
-    : "../../assets/fish.jpeg";
+  let userIcon;
+
+  switch (user.icon) {
+    case "crab": {
+      userIcon = crab;
+      return;
+    }
+    case "fish": {
+      userIcon = fish;
+      return;
+    }
+    case "octopus": {
+      userIcon = octopus;
+      return;
+    }
+    case "shell": {
+      userIcon = shell;
+      return;
+    }
+    case "starfish": {
+      userIcon = starfish;
+      return;
+    }
+    case "whale": {
+      userIcon = whale;
+      return;
+    }
+    default: {
+      userIcon = crab;
+    }
+  }
 
   const toggleUpdateProfile = () => {
     setUpdatingProfile(!updatingProfile);
@@ -29,7 +67,7 @@ export default function Profile() {
           ) : (
             <>
               <div className="profile-header">
-                <img srcSet={iconPath} className="profile-icon" alt="icon" />
+                <img srcSet={userIcon} className="profile-icon" alt="icon" />
               </div>
               <ul className="profile-info">
                 <li className="profile-bio">Bio: {user.bio}</li>
