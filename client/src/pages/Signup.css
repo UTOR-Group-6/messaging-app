@@ -1,6 +1,7 @@
 .signup-div {
-    background-image: url(../assets/ocean-background.jpg);
-    background-size: cover;
+    background-image: url(../assets/ocean-surface-bg.jpg);
+    background-size:cover;
+    background-position: 67% center;
     display: flex;
     height: 100vh;
 }
@@ -45,6 +46,18 @@
   @media screen and (max-width: 768px) {
     .signup-div {
         flex-direction: column;
+    }
+    .form-div {
+      margin: auto;
+    }
+    .login-welcome {
+      text-align: center;
+    }
+    .app-title {
+      font-size: 55px;
+    }
+    .app-tagline {
+      font-size: 30px;
     }
 
   }

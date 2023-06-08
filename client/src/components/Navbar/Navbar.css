@@ -1,5 +1,4 @@
 a, a:link, a:visited, a:focus, a:hover, a:active{
-    color:rgb(192,192,192);
     text-decoration:none;
     cursor: pointer;
 }

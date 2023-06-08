@@ -5,8 +5,9 @@
 }
 
 .login-div {
-    background-image: url(../assets/ocean-background.jpg);
-    background-size: cover;
+    background-image: url(../assets/ocean-surface-bg.jpg);
+    background-size:cover;
+    background-position: 67% center;
     display: flex;
     height: 100vh;
 }
@@ -20,17 +21,17 @@
 
 .app-title {
     font-family: 'Domine', serif;
-    color: white;
+    color: rgb(42, 82, 202);
     font-size: 70px;
-    text-shadow: 4px 4px rgb(42, 82, 202);
+    text-shadow: 4px 4px rgb(255, 255, 255);
 
 }
 
 .app-tagline {
     font-family: 'Wix Madefor Display', sans-serif;
-    color: white;
+    color: rgb(42, 82, 202);
     font-size: 30px;
-    text-shadow: 3px 3px rgb(42, 82, 202);
+    text-shadow: 3px 3px rgb(255, 255, 255);
 }
 
 .form-div {

@@ -3,6 +3,8 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { LOGIN_USER } from '../utils/mutations';
+import ReactAudioPlayer from 'react-audio-player'
+import Audio from '../assets/beach-sounds.mp3';
 
 import "./Login.css"
 
@@ -84,6 +86,12 @@ const LoginForm = () => {
           <p className="redirect">Don't have an account? <Link to="/signup" className="signup-link"><span>Signup now</span></Link></p>
         </form>
       </div>
+      <ReactAudioPlayer
+        src={Audio}
+        autoPlay={true}
+        loop={true}
+        volume={0.5}
+      />
     </div>
   );
 };
