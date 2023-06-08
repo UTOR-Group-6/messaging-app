@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { QUERY_USER } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
 import ProfileForm from "./ProfileForm";
+import { Link } from 'react-router-dom';
 import "./Profile.css";
 
 // Import images
@@ -61,6 +62,7 @@ export default function Profile() {
       ) : (
         <div className="profile-body">
           <p className="welcome-msg">Welcome to Blub</p>
+          <Link className="chat-link" to="/chats">Go to Chats</Link>
           {updatingProfile ? (
             <ProfileForm
               user={(user.username, user.email, user.bio, user.icon)}
