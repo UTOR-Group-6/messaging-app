@@ -216,7 +216,13 @@ Rajvir Dhanoa
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
 
+* [Ocean Audio](https://pixabay.com/users/juliush-3921568/)
+* [Freepik](https://www.freepik.com/author/upklyak)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
