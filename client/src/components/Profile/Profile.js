@@ -70,7 +70,7 @@ export default function Profile() {
           ) : (
             <div className="profile-form-div">
               <div className="profile-header">
-                <img srcSet={userIcon} className="profile-icon" alt="icon" />
+                {/* <img srcSet={userIcon} className="profile-icon" alt="icon" /> */}
               </div>
               <ul className="profile-info">
                 <li className="profile-bio">Bio: {user.bio}</li>

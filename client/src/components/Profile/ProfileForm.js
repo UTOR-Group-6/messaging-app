@@ -40,7 +40,7 @@ const ProfileForm = (user) => {
 
   return (
     <form className="info-form" onSubmit={handleFormSubmit}>
-      <div className="profile-header icon-options">
+      {/* <div className="profile-header icon-options">
         <button
           id="crab"
           className="icon"
@@ -71,7 +71,7 @@ const ProfileForm = (user) => {
           className="icon"
           onClick={(e) => handleIconChange(e)}
         ></button>
-      </div>
+      </div> */}
       <ul className="profile-info">
         <li className="profile-bio">
           Bio:{" "}

@@ -11,7 +11,11 @@
   margin: 10px;
 }
 
-.icon :hover {
+.info-form {
+  border: 2px solid rgb(88, 88, 88);
+  margin: 15px;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .save-btn {
