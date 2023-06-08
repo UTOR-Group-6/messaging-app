@@ -78,7 +78,6 @@ This messaging application differs from others as the theme was specifically sel
 * [![Node][Node.js]][Node-url]
 * [![Express]][Express-url]
 * [![mongodb]][mongodb-url]
-* [![jest]][jest-url]
 * ![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
 * ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 * ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
@@ -101,9 +100,6 @@ This messaging application differs from others as the theme was specifically sel
   ```sh
   npm install
   ```
-    ```sh
-  npm start
-  ```
 
 ### Installation
 
@@ -118,7 +114,7 @@ This messaging application differs from others as the theme was specifically sel
    ```
 4. Execute script
    ```sh
-   npm start
+   npm run develop
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -222,7 +218,7 @@ Rajvir Dhanoa
 ## Acknowledgments
 
 * [Ocean Audio](https://pixabay.com/users/juliush-3921568/)
-* [Freepik](https://www.freepik.com/author/upklyak)
+* [Background Images](https://www.freepik.com/author/upklyak)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
