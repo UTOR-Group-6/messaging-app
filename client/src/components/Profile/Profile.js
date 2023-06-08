@@ -6,7 +6,8 @@ import "./Profile.css";
 
 // Profile shows info on current user and allows updating
 export default function Profile() {
-  const { data } = useQuery(QUERY_USER);
+  const [data] = useQuery(QUERY_USER);
+  console.log(data);
   const [infoState, setInfo] = useState({
     username: "",
     email: "",
