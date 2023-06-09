@@ -122,9 +122,7 @@ This messaging application differs from others as the theme was specifically sel
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
-add screenshots 
-demo gif/video
+<img src="./client/src/assets/blub.demo.gif">
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
