@@ -122,9 +122,8 @@ This messaging application differs from others as the theme was specifically sel
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+![image](https://github.com/UTOR-Group-6/messaging-app/assets/112664790/cd86ba09-f1d9-40ab-84c2-e309dc951d71)
 
-add screenshots 
-demo gif/video
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
